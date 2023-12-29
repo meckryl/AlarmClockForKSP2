@@ -29,32 +29,36 @@ namespace AlarmClockForKSP2
                 if (um.UniverseTime + tw.CurrentRate*timeDelta*0.5>= alarms[0].TimeAsSeconds)
                 {
                     AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage("Alarm!!");
-                    
-                    if (tw.IsAutoWarpEngaged)
-                    {
-                        tw.CancelAutoWarp();
-                    }
 
-                    if (alarms[0].TimeAsSeconds - um.UniverseTime < 10)
-                    {
-                        tw.SetRateIndex(0, true);
-                        alarms.Remove(alarms[0]);
-                        tw.SetIsPaused(true);
-                        um.SetTimePaused(true);
-                    }
-                    else
-                    {
-                        int safeRate = (int)Math.Log10(alarms[0].TimeAsSeconds - um.UniverseTime)+4;
-                        if (safeRate < tw.CurrentRateIndex)
-                        {
-                            tw.SetRateIndex(safeRate, true);
-                        }
-                        
-                    }
-
+                    HandleTimeStop(timeDelta, um, tw);
                 }
             }
             
+        }
+
+        private void HandleTimeStop(double timeDelta, UniverseModel um, TimeWarp tw)
+        {
+            if (tw.IsAutoWarpEngaged)
+            {
+                tw.CancelAutoWarp();
+            }
+
+            if (alarms[0].TimeAsSeconds - um.UniverseTime < 10)
+            {
+                tw.SetRateIndex(0, true);
+                alarms.Remove(alarms[0]);
+                tw.SetIsPaused(true);
+                um.SetTimePaused(true);
+            }
+            else
+            {
+                int safeRate = (int)Math.Log10(alarms[0].TimeAsSeconds - um.UniverseTime) + 4;
+                if (safeRate < tw.CurrentRateIndex)
+                {
+                    tw.SetRateIndex(safeRate, true);
+                }
+
+            }
         }
 
         public void AddAlarm(string name, double time)
@@ -78,7 +82,6 @@ namespace AlarmClockForKSP2
             alarms.Insert(index, alarm);
             AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage("Created " + $"{alarms.Count}");
         }
-
 
         public static TimeManager Instance
         {
