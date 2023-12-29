@@ -9,9 +9,9 @@ namespace AlarmClockForKSP2
     {
         public static void SubscribeToMessages()
         {
-            LoadUtilities.InitializeGameManager();
+            MessageManager.InitializeMessageCenter();
 
-            LoadUtilities.MessageCenter.PersistentSubscribe<GameLoadFinishedMessage>(CreateAlarms);
+            MessageManager.MessageCenter.PersistentSubscribe<GameLoadFinishedMessage>(CreateAlarms);
         }
         public static void CreateAlarms(MessageCenterMessage obj)
         {

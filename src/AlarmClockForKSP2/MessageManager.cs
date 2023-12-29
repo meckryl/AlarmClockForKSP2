@@ -4,11 +4,11 @@ using System.ComponentModel;
 
 namespace AlarmClockForKSP2
 {
-    public static class LoadUtilities
+    public static class MessageManager
     {
         public static MessageCenter MessageCenter;
 
-        public static void InitializeGameManager()
+        public static void InitializeMessageCenter()
         {
             MessageCenter = GameManager.Instance?.Game?.Messages;
         }
