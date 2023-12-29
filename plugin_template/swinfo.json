@@ -1,0 +1,23 @@
+{
+  "spec": "2.0",
+  "mod_id": "AlarmClockForKSP2",
+  "author": "meckryl",
+  "name": "AlarmClock",
+  "description": "Alarm clock",
+  "source": "",
+  "version": "0.0.1",
+  "version_check": "",
+  "ksp2_version": {
+    "min": "0.1.5",
+    "max": "*"
+  },
+  "dependencies": [
+    {
+      "id": "com.github.x606.spacewarp",
+      "version": {
+        "min": "1.5.2",
+        "max": "*"
+      }
+    }
+  ]
+}

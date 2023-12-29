@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="alarms-window" class="root" style="flex-grow: 0; width: 500px; height: 500px; max-width: 500px; max-height: 500px; min-width: 500px; min-height: 500px; overflow: hidden; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); flex-shrink: 0;">
+        <ui:VisualElement name="title-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; flex-shrink: 0;">
+            <ui:Label tabindex="-1" text="Alarm Clock" display-tooltip-when-elided="true" name="window-name" />
+            <ui:Button text="X" display-tooltip-when-elided="true" name="close-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="alarms-list-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: -15px; display: flex;">
+            <ui:Button text="New Alarm" display-tooltip-when-elided="true" name="new-alarm-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="new-alarm-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
+            <ui:Button text="Manuever" display-tooltip-when-elided="true" name="manuever-button" />
+            <ui:Button text="SOI Entered" display-tooltip-when-elided="true" name="soi-button" />
+            <ui:Button text="Transfer Window" display-tooltip-when-elided="true" name="transfer-window-button" />
+            <ui:Button text="Custom" display-tooltip-when-elided="true" name="custom-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="transfer-window-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
+            <ui:DropdownField label="From" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-from-dropdown" style="color: rgb(255, 255, 255);" />
+            <ui:DropdownField label="To" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-to-dropdown" style="color: rgb(255, 255, 255);" />
+            <ui:Label tabindex="-1" text="Time:" display-tooltip-when-elided="true" name="transfer-time-label" style="color: rgb(255, 255, 255);" />
+            <ui:Button text="Confirm" display-tooltip-when-elided="true" name="transfer-confirm-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="custom-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
+            <ui:IntegerField label="Year" value="1" is-delayed="false" name="year-integerfield" />
+            <ui:IntegerField label="Month" value="1" is-delayed="false" name="month-integerfield" />
+            <ui:IntegerField label="Day" value="0" is-delayed="false" name="day-integerfield" />
+            <ui:IntegerField label="Hour" value="0" is-delayed="false" name="hour-integerfield" />
+            <ui:IntegerField label="Minute" value="0" is-delayed="false" name="minute-integerfield" />
+            <ui:IntegerField label="Second" value="0" is-delayed="false" name="second-integerfield" style="color: rgb(255, 255, 255);" />
+            <ui:Button text="Confirm" display-tooltip-when-elided="true" name="custom-confirm-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

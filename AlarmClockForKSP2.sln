@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{5EA61EE8-B0F7-4A16-9B08-822B11EEF501}") = "AlarmClockForKSP2", "src/AlarmClockForKSP2/AlarmClockForKSP2.csproj", "{632702AB-B842-4B06-B9BB-C7186D1EF835}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Deploy|Any CPU = Deploy|Any CPU
+		DeployAndRun|Any CPU = DeployAndRun|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.DeployAndRun|Any CPU.ActiveCfg = DeployAndRun|Any CPU
+		{632702AB-B842-4B06-B9BB-C7186D1EF835}.DeployAndRun|Any CPU.Build.0 = DeployAndRun|Any CPU
+	EndGlobalSection
+EndGlobal

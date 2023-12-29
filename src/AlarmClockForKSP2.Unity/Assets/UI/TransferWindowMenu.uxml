@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="transfer-window-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
+        <ui:DropdownField label="From" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-from-dropdown" style="color: rgb(255, 255, 255);" />
+        <ui:DropdownField label="To" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-to-dropdown" style="color: rgb(255, 255, 255);" />
+        <ui:Label tabindex="-1" text="Time:" display-tooltip-when-elided="true" name="transfer-time-label" style="color: rgb(255, 255, 255);" />
+        <ui:Button text="Confirm" display-tooltip-when-elided="true" name="transfer-confirm-button" />
+    </ui:VisualElement>
+</ui:UXML>
