@@ -10,8 +10,8 @@ namespace AlarmClockForKSP2
 
         private VisualElement _customAlarmContainer;
 
+        public TextField NameTextField;
         public IntegerField YearIntegerField;
-        public IntegerField MonthIntegerField;
         public IntegerField DayIntegerField;
         public IntegerField HourIntegerField;
         public IntegerField MinuteIntegerField;
@@ -35,8 +35,9 @@ namespace AlarmClockForKSP2
 
             if (_customAlarmContainer != null)
             {
+
+                NameTextField = _customAlarmContainer.Q<TextField>("name-textfield");
                 YearIntegerField = _customAlarmContainer.Q<IntegerField>("year-integerfield");
-                MonthIntegerField = _customAlarmContainer.Q<IntegerField>("month-integerfield");
                 DayIntegerField = _customAlarmContainer.Q<IntegerField>("day-integerfield");
                 HourIntegerField = _customAlarmContainer.Q<IntegerField>("hour-integerfield");
                 MinuteIntegerField = _customAlarmContainer.Q<IntegerField>("minute-integerfield");
@@ -61,7 +62,7 @@ namespace AlarmClockForKSP2
                 SecondIntegerField.value
                 );
 
-            TimeManager.Instance.AddAlarm("todo: names", time);
+            TimeManager.Instance.AddAlarm(NameTextField.value, time);
             _parentController.AlarmsList.Rebuild();
 
             YearIntegerField.value = 1;
