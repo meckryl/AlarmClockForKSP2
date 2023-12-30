@@ -1,4 +1,5 @@
-﻿using UnityEngine.UIElements;
+﻿using KSP.Messages;
+using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
@@ -50,6 +51,9 @@ namespace AlarmClockForKSP2
                 AlarmsListView.reorderable = false;
 
                 _alarmsListContainer.Add(AlarmsListView);
+
+                PersistentDataManager.RegisterAlarmReset(ResetAlarms);
+                MessageManager.MessageCenter.PersistentSubscribe<QuitToMainMenuStartedMessage>(_ => ResetAlarms());
             }
             else
             {
@@ -81,6 +85,14 @@ namespace AlarmClockForKSP2
                 ;
             }
 
+        }
+
+        private bool ResetAlarms()
+        {
+            TimeManager.Instance.alarms = new List<Alarm>();
+            AlarmsListView.itemsSource = TimeManager.Instance.alarms;
+            AlarmsListView.Rebuild();
+            return true;
         }
     }
 }

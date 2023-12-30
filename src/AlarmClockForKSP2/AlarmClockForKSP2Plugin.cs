@@ -43,6 +43,8 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
 
         Instance = this;
 
+        MessageManager.InitializeMessageCenter();
+
         // Import uxml and set up the window
         VisualTreeAsset uxml = AssetManager.GetAsset<VisualTreeAsset>($"{ModGuid}/" + "alarmclock-resources/UI/Alarmclock_ui.uxml");
 
@@ -115,6 +117,8 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         Testing.SubscribeToMessages();
 
         TransferWindowPlanner.instantiateBodies();
+
+        PersistentDataManager.InititializePersistentDataManager(SpaceWarpPlugin.ModGuid);
     }
 
     public void Update()

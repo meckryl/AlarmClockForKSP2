@@ -40,6 +40,11 @@ namespace AlarmClockForKSP2
             _time.Second = internalTime.Seconds;
         }
 
+        public FormattedTimeWrapper(FormattedTime time)
+        {
+            _time = time;
+        }
+
         public string asString()
         {
             return "Year: " + $"{_time.Year + 1} " +

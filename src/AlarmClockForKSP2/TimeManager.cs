@@ -5,6 +5,7 @@ using KSP.Sim;
 using UnityEngine;
 using System.Collections.Generic;
 using KSP.Sim.impl;
+using KSP.Messages;
 
 namespace AlarmClockForKSP2
 {
@@ -71,10 +72,8 @@ namespace AlarmClockForKSP2
         public void AddAlarm(string name, FormattedTimeWrapper time)
         {
             UniverseModel um = GameManager.Instance?.Game?.UniverseModel;
-            //todo: if um is null, pass and return false
-            double universetime = um.UniverseTime;
 
-            if (time.asSeconds() <= universetime) return;
+            if (um != null && time.asSeconds() <= um.UniverseTime) return;
 
             Alarm alarm = new Alarm(name, time);
             Predicate<Alarm> query = delegate (Alarm existingAlarm) { return alarm >= existingAlarm; };
@@ -83,12 +82,26 @@ namespace AlarmClockForKSP2
             AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage("Created " + $"{alarms.Count}");
         }
 
+        private void ValidateAlarmsOnLoadIn()
+        {
+            UniverseModel um = GameManager.Instance?.Game?.UniverseModel;
+            double universetime = um.UniverseTime;
+            while (alarms.Count > 0 && alarms[0].Time.asSeconds() <= universetime)
+            {
+                alarms.RemoveAt(0);
+            }
+        }
+
         public static TimeManager Instance
         {
             get
             {
                 if (_instance == null)
+                {
                     _instance = new TimeManager();
+                    MessageManager.MessageCenter.PersistentSubscribe<QuitToMainMenuStartedMessage>(_ => _instance.ValidateAlarmsOnLoadIn());
+                }
+
                 return _instance;
             }
         }
