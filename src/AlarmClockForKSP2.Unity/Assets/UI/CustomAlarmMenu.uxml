@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="custom-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
+        <ui:TextField picking-mode="Ignore" label="Name" value="Name" name="name-textfield" />
         <ui:IntegerField label="Year" value="1" is-delayed="false" name="year-integerfield" />
-        <ui:IntegerField label="Month" value="1" is-delayed="false" name="month-integerfield" />
         <ui:IntegerField label="Day" value="0" is-delayed="false" name="day-integerfield" />
         <ui:IntegerField label="Hour" value="0" is-delayed="false" name="hour-integerfield" />
         <ui:IntegerField label="Minute" value="0" is-delayed="false" name="minute-integerfield" />

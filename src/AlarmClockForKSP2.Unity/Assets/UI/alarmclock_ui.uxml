@@ -8,24 +8,24 @@
             <ui:Button text="New Alarm" display-tooltip-when-elided="true" name="new-alarm-button" />
         </ui:VisualElement>
         <ui:VisualElement name="new-alarm-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
-            <ui:Button text="Manuever" display-tooltip-when-elided="true" name="manuever-button" />
-            <ui:Button text="SOI Entered" display-tooltip-when-elided="true" name="soi-button" />
+            <ui:Button text="Manuever - Not Implemented" display-tooltip-when-elided="true" name="manuever-button" style="display: none;" />
+            <ui:Button text="SOI Entered - Not Implemented" display-tooltip-when-elided="true" name="soi-button" style="display: none;" />
             <ui:Button text="Transfer Window" display-tooltip-when-elided="true" name="transfer-window-button" />
             <ui:Button text="Custom" display-tooltip-when-elided="true" name="custom-button" />
         </ui:VisualElement>
         <ui:VisualElement name="transfer-window-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
-            <ui:DropdownField label="From" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-from-dropdown" style="color: rgb(255, 255, 255);" />
-            <ui:DropdownField label="To" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-to-dropdown" style="color: rgb(255, 255, 255);" />
-            <ui:Label tabindex="-1" text="Time:" display-tooltip-when-elided="true" name="transfer-time-label" style="color: rgb(255, 255, 255);" />
+            <ui:DropdownField label="From" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-from-dropdown" />
+            <ui:DropdownField label="To" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-to-dropdown" />
+            <ui:Label tabindex="-1" text="Time:" display-tooltip-when-elided="true" name="transfer-time-label" style="display: none;" />
             <ui:Button text="Confirm" display-tooltip-when-elided="true" name="transfer-confirm-button" />
         </ui:VisualElement>
         <ui:VisualElement name="custom-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
+            <ui:TextField picking-mode="Ignore" label="Text Field" value="Name" name="name-textfield" />
             <ui:IntegerField label="Year" value="1" is-delayed="false" name="year-integerfield" />
-            <ui:IntegerField label="Month" value="1" is-delayed="false" name="month-integerfield" />
-            <ui:IntegerField label="Day" value="0" is-delayed="false" name="day-integerfield" />
+            <ui:IntegerField label="Day" value="1" is-delayed="false" name="day-integerfield" />
             <ui:IntegerField label="Hour" value="0" is-delayed="false" name="hour-integerfield" />
             <ui:IntegerField label="Minute" value="0" is-delayed="false" name="minute-integerfield" />
-            <ui:IntegerField label="Second" value="0" is-delayed="false" name="second-integerfield" style="color: rgb(255, 255, 255);" />
+            <ui:IntegerField label="Second" value="0" is-delayed="false" name="second-integerfield" />
             <ui:Button text="Confirm" display-tooltip-when-elided="true" name="custom-confirm-button" />
         </ui:VisualElement>
     </ui:VisualElement>
