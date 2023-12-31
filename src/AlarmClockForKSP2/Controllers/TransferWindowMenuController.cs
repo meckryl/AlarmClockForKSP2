@@ -1,15 +1,14 @@
 ﻿using KSP.Game;
+using SpaceWarp.API.Assets;
 using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class TransferWindowMenuController
+    public class TransferWindowMenuController : VisualElement
     {
         private WindowController _parentController;
 
         private bool _isVisible = false;
-
-        private VisualElement _transferWindowContainer;
 
         public DropdownField TransferFromDropdown;
         public DropdownField TransferToDropdown;
@@ -22,22 +21,23 @@ namespace AlarmClockForKSP2
             set
             {
                 _isVisible = value;
-                _transferWindowContainer.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
+                style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
             }
         }
 
-        public TransferWindowMenuController(WindowController parentController, VisualElement transferWindowContainer)
+        public TransferWindowMenuController(WindowController parentController)
         {
             _parentController = parentController;
-            _transferWindowContainer = transferWindowContainer;
+            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/TransferWindowMenu.uxml").CloneTree();
 
-            if (_transferWindowContainer != null)
+            if (root != null)
             {
-                TransferFromDropdown = _transferWindowContainer.Q<DropdownField>("transfer-from-dropdown");
-                TransferToDropdown = _transferWindowContainer.Q<DropdownField>("transfer-to-dropdown");
-                TransferTimeLabel = _transferWindowContainer.Q<Label>("transfer-time-label");
+                Add(root);
+                TransferFromDropdown = this.Q<DropdownField>("transfer-from-dropdown");
+                TransferToDropdown = this.Q<DropdownField>("transfer-to-dropdown");
+                TransferTimeLabel = this.Q<Label>("transfer-time-label");
 
-                TransferConfirmButton = _transferWindowContainer.Q<Button>("transfer-confirm-button");
+                TransferConfirmButton = this.Q<Button>("transfer-confirm-button");
                 TransferConfirmButton.clicked += TransferConfirmButtonClicked;
             }
             else

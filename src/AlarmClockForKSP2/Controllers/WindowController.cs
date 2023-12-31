@@ -17,16 +17,9 @@ namespace AlarmClockForKSP2
 
         private VisualElement _alarmsWindow;
 
-        private VisualElement _alarmsListContainer;
         private AlarmsListController _alarmsListController;
-
-        private VisualElement _newAlarmContainer;
         private NewAlarmMenuController _newAlarmMenuController;
-
-        private VisualElement _transferWindowContainer;
         private TransferWindowMenuController _transferWindowMenuController;
-
-        private VisualElement _customAlarmContainer;
         private CustomAlarmMenuController _customAlarmMenuController;
 
         public ListView AlarmsList;
@@ -75,19 +68,15 @@ namespace AlarmClockForKSP2
             _rootElement = _window.rootVisualElement[0];
             _alarmsWindow = _rootElement.Q<VisualElement>("alarms-window");
             
+            _alarmsListController = new AlarmsListController(this);
+            _newAlarmMenuController = new NewAlarmMenuController(this);
+            _transferWindowMenuController = new TransferWindowMenuController(this);
+            _customAlarmMenuController = new CustomAlarmMenuController(this);
 
-            _alarmsListContainer = _rootElement.Q<VisualElement>("alarms-list-container");
-            _newAlarmContainer = _rootElement.Q<VisualElement>("new-alarm-container");
-            _transferWindowContainer = _rootElement.Q<VisualElement>("transfer-window-container");
-            _customAlarmContainer = _rootElement.Q<VisualElement>("custom-container");
-
-            _alarmsListController = new AlarmsListController(this, _alarmsListContainer);
-
-            _newAlarmMenuController = new NewAlarmMenuController(this, _newAlarmContainer);
-
-            _transferWindowMenuController = new TransferWindowMenuController(this, _transferWindowContainer);
-
-            _customAlarmMenuController = new CustomAlarmMenuController(this, _customAlarmContainer);
+            _alarmsWindow.Add(_alarmsListController);
+            _alarmsWindow.Add(_newAlarmMenuController);
+            _alarmsWindow.Add(_transferWindowMenuController);
+            _alarmsWindow.Add(_customAlarmMenuController);
 
             AlarmsList = _alarmsListController.AlarmsListView;
 

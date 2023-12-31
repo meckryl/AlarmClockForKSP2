@@ -1,15 +1,14 @@
 ﻿using KSP.Messages;
+using SpaceWarp.API.Assets;
 using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class AlarmsListController
+    public class AlarmsListController : VisualElement
     {
         private WindowController _parentController;
 
         private bool _isVisible = false;
-
-        private VisualElement _alarmsListContainer;
 
         public Button NewAlarmButton;
         public ListView AlarmsListView;
@@ -20,18 +19,19 @@ namespace AlarmClockForKSP2
             set
             {
                 _isVisible = value;
-                _alarmsListContainer.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
+                style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
             }
         }
 
-        public AlarmsListController(WindowController parentController, VisualElement alarmsListContainer)
+        public AlarmsListController(WindowController parentController)
         {
             _parentController = parentController;
-            _alarmsListContainer = alarmsListContainer;
+            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/AlarmsList.uxml").CloneTree();
 
-            if (_alarmsListContainer != null)
+            if (root != null)
             {
-                NewAlarmButton = _alarmsListContainer.Q<Button>("new-alarm-button");
+                Add(root);
+                NewAlarmButton = this.Q<Button>("new-alarm-button");
                 NewAlarmButton.clicked += NewAlarmButtonClicked;
 
                 List<Alarm> alarms = TimeManager.Instance.alarms;
@@ -50,7 +50,7 @@ namespace AlarmClockForKSP2
                 AlarmsListView = new ListView(TimeManager.Instance.alarms, itemHeight, makeItem, bindItem);
                 AlarmsListView.reorderable = false;
 
-                _alarmsListContainer.Add(AlarmsListView);
+                Add(AlarmsListView);
 
                 PersistentDataManager.RegisterAlarmReset(ResetAlarms);
                 MessageManager.MessageCenter.PersistentSubscribe<QuitToMainMenuStartedMessage>(_ => ResetAlarms());

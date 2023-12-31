@@ -1,14 +1,13 @@
-﻿using UnityEngine.UIElements;
+﻿using SpaceWarp.API.Assets;
+using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class CustomAlarmMenuController
+    public class CustomAlarmMenuController : VisualElement
     {
         private WindowController _parentController;
 
         private bool _isVisible = false;
-
-        private VisualElement _customAlarmContainer;
 
         public TextField NameTextField;
         public IntegerField YearIntegerField;
@@ -24,25 +23,26 @@ namespace AlarmClockForKSP2
             set
             {
                 _isVisible = value;
-                _customAlarmContainer.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
+                style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
             }
         }
 
-        public CustomAlarmMenuController(WindowController parentController, VisualElement customAlarmContainer)
+        public CustomAlarmMenuController(WindowController parentController)
         {
             _parentController = parentController;
-            _customAlarmContainer = customAlarmContainer;
+            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/CustomAlarmMenu.uxml").CloneTree();
 
-            if (_customAlarmContainer != null)
+            if (root != null)
             {
+                Add(root);
 
-                NameTextField = _customAlarmContainer.Q<TextField>("name-textfield");
-                YearIntegerField = _customAlarmContainer.Q<IntegerField>("year-integerfield");
-                DayIntegerField = _customAlarmContainer.Q<IntegerField>("day-integerfield");
-                HourIntegerField = _customAlarmContainer.Q<IntegerField>("hour-integerfield");
-                MinuteIntegerField = _customAlarmContainer.Q<IntegerField>("minute-integerfield");
-                SecondIntegerField = _customAlarmContainer.Q<IntegerField>("second-integerfield");
-                CustomConfirmButton = _customAlarmContainer.Q<Button>("custom-confirm-button");
+                NameTextField = this.Q<TextField>("name-textfield");
+                YearIntegerField = this.Q<IntegerField>("year-integerfield");
+                DayIntegerField = this.Q<IntegerField>("day-integerfield");
+                HourIntegerField = this.Q<IntegerField>("hour-integerfield");
+                MinuteIntegerField = this.Q<IntegerField>("minute-integerfield");
+                SecondIntegerField = this.Q<IntegerField>("second-integerfield");
+                CustomConfirmButton = this.Q<Button>("custom-confirm-button");
 
                 CustomConfirmButton.clicked += CustomConfirmButtonClicked;
             }

@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="alarms-window" class="root" style="flex-grow: 0; width: 500px; height: 500px; max-width: 500px; max-height: 500px; min-width: 500px; min-height: 500px; overflow: hidden; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); flex-shrink: 0;">
+        <ui:VisualElement name="title-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; flex-shrink: 0; align-self: auto; align-items: center;">
+            <ui:Label tabindex="-1" text="Alarm Clock" display-tooltip-when-elided="true" name="window-name" />
+            <ui:Button text="X" display-tooltip-when-elided="true" name="close-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

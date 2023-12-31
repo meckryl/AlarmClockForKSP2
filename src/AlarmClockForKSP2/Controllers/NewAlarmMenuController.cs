@@ -1,14 +1,13 @@
-﻿using UnityEngine.UIElements;
+﻿using SpaceWarp.API.Assets;
+using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class NewAlarmMenuController
+    public class NewAlarmMenuController : VisualElement
     {
         private WindowController _parentController;
 
         private bool _isVisible = false;
-
-        private VisualElement _newAlarmContainer;
 
         public Button ManueverButton;
         public Button SoiButton;
@@ -21,27 +20,28 @@ namespace AlarmClockForKSP2
             set
             {
                 _isVisible = value;
-                _newAlarmContainer.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
+                style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
             }
         }
 
-        public NewAlarmMenuController(WindowController parentController, VisualElement newAlarmContainer)
+        public NewAlarmMenuController(WindowController parentController)
         {
-            _newAlarmContainer = newAlarmContainer;
             _parentController = parentController;
+            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/NewAlarmMenu.uxml").CloneTree();
 
-            if (_newAlarmContainer != null)
+            if (root != null)
             {
-                ManueverButton = _newAlarmContainer.Q<Button>("manuever-button");
+                Add(root);
+                ManueverButton = this.Q<Button>("manuever-button");
                 ManueverButton.clicked += DefaultToListView;
 
-                SoiButton = _newAlarmContainer.Q<Button>("soi-button");
+                SoiButton = this.Q<Button>("soi-button");
                 SoiButton.clicked += DefaultToListView;
 
-                TransferWindowButton = _newAlarmContainer.Q<Button>("transfer-window-button");
+                TransferWindowButton = this.Q<Button>("transfer-window-button");
                 TransferWindowButton.clicked += TransferWindowButtonClicked;
 
-                CustomAlarmButton = _newAlarmContainer.Q<Button>("custom-button");
+                CustomAlarmButton = this.Q<Button>("custom-button");
                 CustomAlarmButton.clicked += CustomAlarmButtonClicked;
             }
             else

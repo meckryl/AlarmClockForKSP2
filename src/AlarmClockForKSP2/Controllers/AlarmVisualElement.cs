@@ -12,7 +12,7 @@ namespace AlarmClockForKSP2
     {
         public AlarmVisualElement()
         {
-            var root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/AlarmEntry.uxml").CloneTree();
+            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/AlarmEntry.uxml").CloneTree();
 
             Add(root);
         }

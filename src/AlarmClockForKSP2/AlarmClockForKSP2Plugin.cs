@@ -46,7 +46,7 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         MessageManager.InitializeMessageCenter();
 
         // Import uxml and set up the window
-        VisualTreeAsset uxml = AssetManager.GetAsset<VisualTreeAsset>($"{ModGuid}/" + "alarmclock-resources/UI/Alarmclock_ui.uxml");
+        VisualTreeAsset uxml = AssetManager.GetAsset<VisualTreeAsset>($"{ModGuid}/" + "alarmclock-resources/UI/MainWindow.uxml");
 
         WindowOptions windowOptions = new WindowOptions
         {
