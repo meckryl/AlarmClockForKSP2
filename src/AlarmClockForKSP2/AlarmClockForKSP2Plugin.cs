@@ -11,6 +11,7 @@ using SpaceWarp.API.UI.Appbar;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UitkForKsp2.API;
+using KSP.Messages;
 
 namespace AlarmClockForKSP2;
 
@@ -33,6 +34,8 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
 
     // Window Controller Reference
     internal WindowController AlarmWindowController;
+
+    internal bool GameStateValid = false;
 
     /// <summary>
     /// Runs when the mod is first initialized.
@@ -119,11 +122,24 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         TransferWindowPlanner.instantiateBodies();
 
         PersistentDataManager.InititializePersistentDataManager(SpaceWarpPlugin.ModGuid);
+
+        MessageManager.MessageCenter.PersistentSubscribe<GameStateChangedMessage>(HideWindowOnInvalidState);
+
+    }
+
+    public void HideWindowOnInvalidState(MessageCenterMessage obj)
+    {
+        GameStateValid = GameStateManager.IsGameStateValid();
+        if (!GameStateValid)
+        {
+            AlarmWindowController.IsWindowOpen = false;
+        }
+        AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"Game state validity: {GameStateValid}");
     }
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.A) && GameStateValid)
         {
             AlarmWindowController.IsWindowOpen = !AlarmWindowController.IsWindowOpen;
         }
