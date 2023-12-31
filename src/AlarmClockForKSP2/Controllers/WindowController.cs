@@ -101,7 +101,6 @@ namespace AlarmClockForKSP2
 
         public void RefreshVisibility(int state)
         {
-            _windowState = state;
 
             switch (state)
             {

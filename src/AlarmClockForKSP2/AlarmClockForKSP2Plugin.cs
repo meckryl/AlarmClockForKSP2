@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UitkForKsp2.API;
 using KSP.Messages;
+using AlarmClockForKSP2.Managers;
 
 namespace AlarmClockForKSP2;
 
@@ -122,8 +123,24 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
 
         PersistentDataManager.InititializePersistentDataManager(SpaceWarpPlugin.ModGuid);
 
+        LinkManagersToMessages();
+
+    }
+
+    private void LinkManagersToMessages()
+    {
         MessageManager.MessageCenter.PersistentSubscribe<GameStateChangedMessage>(HideWindowOnInvalidState);
 
+        MessageManager.MessageCenter.PersistentSubscribe<ManeuverCreatedMessage>(SimulationManager.UpdateCurrentManeuver);
+        MessageManager.MessageCenter.PersistentSubscribe<ManeuverMessageBase>(SimulationManager.UpdateCurrentManeuver);
+
+        //Add if ManueverMessageBase doesn't work
+        //MessageManager.MessageCenter.PersistentSubscribe<ManeuverRemovedMessage>(SimulationManager.UpdateCurrentManeuver);
+        //MessageManager.MessageCenter.PersistentSubscribe<ManeuverFinishedMessage>(SimulationManager.UpdateCurrentManeuver);
+
+        MessageManager.MessageCenter.PersistentSubscribe<ActiveVesselDestroyedMessage>(SimulationManager.UpdateCurrentManeuver);
+        MessageManager.MessageCenter.PersistentSubscribe<GameStateChangedMessage>(SimulationManager.UpdateCurrentManeuver);
+        MessageManager.MessageCenter.PersistentSubscribe<VesselChangedMessage>(SimulationManager.UpdateCurrentManeuver);
     }
 
     public void HideWindowOnInvalidState(MessageCenterMessage obj)

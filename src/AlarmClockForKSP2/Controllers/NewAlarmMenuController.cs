@@ -1,4 +1,5 @@
-﻿using SpaceWarp.API.Assets;
+﻿using AlarmClockForKSP2.Managers;
+using SpaceWarp.API.Assets;
 using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
@@ -33,7 +34,7 @@ namespace AlarmClockForKSP2
             {
                 Add(root);
                 ManueverButton = this.Q<Button>("manuever-button");
-                ManueverButton.clicked += DefaultToListView;
+                ManueverButton.clicked += ManeuverButtonClicked;
 
                 SoiButton = this.Q<Button>("soi-button");
                 SoiButton.clicked += DefaultToListView;
@@ -51,6 +52,19 @@ namespace AlarmClockForKSP2
         }
         private void DefaultToListView()
         {
+            _parentController.RefreshVisibility(0);
+        }
+
+        private void ManeuverButtonClicked()
+        {
+            if (SimulationManager.CurrentManeuver == null)
+            {
+                _parentController.RefreshVisibility(0);
+                return;
+            }
+
+            double maneuverTimeSeconds = SimulationManager.CurrentManeuver.Time;
+            TimeManager.Instance.AddAlarm($"{SimulationManager.ActiveVessel.Name} reaches maneuver", maneuverTimeSeconds);
             _parentController.RefreshVisibility(0);
         }
 
