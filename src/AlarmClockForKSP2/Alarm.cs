@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AlarmClockForKSP2
+﻿namespace AlarmClockForKSP2
 {
     public struct AlarmPersistentData
     {

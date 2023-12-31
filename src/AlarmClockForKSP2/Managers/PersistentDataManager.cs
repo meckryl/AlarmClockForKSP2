@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using SpaceWarp.API;
-
-namespace AlarmClockForKSP2
+﻿namespace AlarmClockForKSP2
 {
     public class AlarmClockPluginSaveData
     {

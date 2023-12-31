@@ -1,7 +1,4 @@
 ﻿using KSP.Messages;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AlarmClockForKSP2
 {
