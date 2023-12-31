@@ -31,13 +31,13 @@ namespace AlarmClockForKSP2
                 {
                     AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage("Alarm!!");
 
-                    HandleTimeStop(timeDelta, um, tw);
+                    HandleTimeStop(um, tw);
                 }
             }
             
         }
 
-        private void HandleTimeStop(double timeDelta, UniverseModel um, TimeWarp tw)
+        private void HandleTimeStop(UniverseModel um, TimeWarp tw)
         {
             if (tw.IsAutoWarpEngaged)
             {

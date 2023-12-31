@@ -10,15 +10,29 @@ namespace AlarmClockForKSP2.Managers
         public static VesselComponent ActiveVessel;
         public static ManeuverNodeData CurrentManeuver;
 
-        public static void UpdateActiveVessel(MessageCenterMessage obj)
+        public static double SOIChangePrediction;
+        public static bool SOIChangePredictionExists;
+
+        public static void UpdateActiveVessel()
         {
             ActiveVessel = GameManager.Instance?.Game?.ViewController?.GetActiveVehicle(true)?.GetSimVessel(true);
         }
 
         public static void UpdateCurrentManeuver(MessageCenterMessage obj)
         {
-            UpdateActiveVessel(obj);
+            UpdateActiveVessel();
             CurrentManeuver = ActiveVessel != null ? GameManager.Instance?.Game?.SpaceSimulation.Maneuvers.GetNodesForVessel(ActiveVessel.GlobalId).FirstOrDefault() : null;
+        }
+
+        public static void UpdateSOIChangePrediction(MessageCenterMessage obj)
+        {
+            UpdateSOIChangePrediction();
+        }
+
+        public static void UpdateSOIChangePrediction()
+        {
+            SOIChangePrediction = ActiveVessel.Orbit.UniversalTimeAtSoiEncounter;
+            SOIChangePredictionExists = SOIChangePrediction >= 0;
         }
     }
 }

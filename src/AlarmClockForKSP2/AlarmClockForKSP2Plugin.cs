@@ -141,6 +141,9 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         MessageManager.MessageCenter.PersistentSubscribe<ActiveVesselDestroyedMessage>(SimulationManager.UpdateCurrentManeuver);
         MessageManager.MessageCenter.PersistentSubscribe<GameStateChangedMessage>(SimulationManager.UpdateCurrentManeuver);
         MessageManager.MessageCenter.PersistentSubscribe<VesselChangedMessage>(SimulationManager.UpdateCurrentManeuver);
+
+        MessageManager.MessageCenter.PersistentSubscribe<SOIChangePredictedMessage>(SimulationManager.UpdateSOIChangePrediction);
+
     }
 
     public void HideWindowOnInvalidState(MessageCenterMessage obj)

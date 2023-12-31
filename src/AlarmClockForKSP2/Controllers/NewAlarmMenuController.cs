@@ -37,7 +37,7 @@ namespace AlarmClockForKSP2
                 ManueverButton.clicked += ManeuverButtonClicked;
 
                 SoiButton = this.Q<Button>("soi-button");
-                SoiButton.clicked += DefaultToListView;
+                SoiButton.clicked += SOIButtonClicked;
 
                 TransferWindowButton = this.Q<Button>("transfer-window-button");
                 TransferWindowButton.clicked += TransferWindowButtonClicked;
@@ -65,6 +65,20 @@ namespace AlarmClockForKSP2
 
             double maneuverTimeSeconds = SimulationManager.CurrentManeuver.Time;
             TimeManager.Instance.AddAlarm($"{SimulationManager.ActiveVessel.Name} reaches maneuver", maneuverTimeSeconds);
+            _parentController.RefreshVisibility(0);
+        }
+
+        private void SOIButtonClicked()
+        {
+            SimulationManager.UpdateSOIChangePrediction();
+            if (!SimulationManager.SOIChangePredictionExists)
+            {
+                _parentController.RefreshVisibility(0);
+                return;
+            }
+
+            double soiChangeTimeSeconds = SimulationManager.SOIChangePrediction;
+            TimeManager.Instance.AddAlarm($"{SimulationManager.ActiveVessel.Name} changes SOI", soiChangeTimeSeconds);
             _parentController.RefreshVisibility(0);
         }
 
