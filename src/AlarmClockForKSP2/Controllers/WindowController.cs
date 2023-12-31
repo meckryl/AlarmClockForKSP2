@@ -25,8 +25,6 @@ namespace AlarmClockForKSP2
         // The backing field for the IsWindowOpen property
         private bool _isWindowOpen = false;
 
-        private int _windowState;
-
         public bool IsWindowOpen
         {
             get => _isWindowOpen;
