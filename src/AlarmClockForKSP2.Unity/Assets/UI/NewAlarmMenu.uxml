@@ -1,8 +1,29 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="new-alarm-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
-        <ui:Button text="Manuever" display-tooltip-when-elided="true" name="manuever-button" />
-        <ui:Button text="SOI Entered" display-tooltip-when-elided="true" name="soi-button" />
-        <ui:Button text="Transfer Window" display-tooltip-when-elided="true" name="transfer-window-button" />
-        <ui:Button text="Custom" display-tooltip-when-elided="true" name="custom-button" />
+        <ui:Label tabindex="-1" text="&gt; new_alarm" display-tooltip-when-elided="true" style="-unity-font-definition: initial; font-size: 24px; -unity-text-align: middle-left; margin-top: 0; margin-left: 10px; -unity-font-style: normal; -unity-font: url(&apos;project://database/Assets/UI/Fonts/pixel_operator/PixelOperator.ttf?fileID=12800000&amp;guid=9ceec0e7d44939f4eb91cc3bd17a6652&amp;type=3#PixelOperator&apos;);" />
+        <ui:Button display-tooltip-when-elided="true" name="manuever-button" style="padding-top: 12px; height: 38px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; border-left-width: 3px; border-right-width: 3px; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Icons/maneuver_icon.png?fileID=2800000&amp;guid=981f61c2fd1c6484cb84a6288f042fae&amp;type=3#maneuver_icon&apos;); width: 32px; height: 32px; min-width: 32px; min-height: 32px; -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; margin-top: -9px;" />
+                <ui:Label tabindex="-1" text="//Maneuver" display-tooltip-when-elided="true" style="padding-left: 12px;" />
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="soi-button" style="padding-top: 12px; height: 38px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; border-left-width: 3px; border-right-width: 3px; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Icons/soi_icon.png?fileID=2800000&amp;guid=52a2502776df39948957ddab09fbd29b&amp;type=3#soi_icon&apos;); width: 32px; height: 32px; min-width: 32px; min-height: 32px; -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; margin-top: -9px;" />
+                <ui:Label tabindex="-1" text="//SOI Change" display-tooltip-when-elided="true" style="padding-left: 12px;" />
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="transfer-window-button" style="padding-top: 12px; height: 38px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; border-left-width: 3px; border-right-width: 3px; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Icons/transfer_window_icon.png?fileID=2800000&amp;guid=6dcd7a7bc84781f4ca673951ba4f305d&amp;type=3#transfer_window_icon&apos;); width: 32px; height: 32px; min-width: 32px; min-height: 32px; -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; margin-top: -9px;" />
+                <ui:Label tabindex="-1" text="//Transfer Window" display-tooltip-when-elided="true" style="padding-left: 12px;" />
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="custom-button" style="padding-top: 12px; height: 38px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; border-left-width: 3px; border-right-width: 3px; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Icons/custom_button.png?fileID=2800000&amp;guid=e7c1cbeb50c6f5447a694a2a590da477&amp;type=3#custom_button&apos;); width: 32px; height: 32px; min-width: 32px; min-height: 32px; -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; margin-top: -9px;" />
+                <ui:Label tabindex="-1" text="//Custom Time" display-tooltip-when-elided="true" style="padding-left: 12px;" />
+            </ui:VisualElement>
+        </ui:Button>
     </ui:VisualElement>
 </ui:UXML>

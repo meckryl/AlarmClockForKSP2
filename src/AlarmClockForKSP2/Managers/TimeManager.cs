@@ -25,26 +25,31 @@ namespace AlarmClockForKSP2
                 && gi.ViewController.TimeWarp is TimeWarp tw
                 && alarms.Count > 0)
             {
-                double timeDelta = (um.UniverseTime - _previousTime) / tw.CurrentRate;
+                double timeDelta = um.UniverseTime - _previousTime;
 
-                if (um.UniverseTime + tw.CurrentRate*timeDelta*0.5>= alarms[0].TimeAsSeconds)
+                if (um.UniverseTime + timeDelta*15>= alarms[0].TimeAsSeconds)
                 {
                     AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage("Alarm!!");
 
-                    HandleTimeStop(um, tw);
+                    HandleTimeStop(um, tw, timeDelta);
                 }
+
+                _previousTime = um.UniverseTime;
             }
             
         }
 
-        private void HandleTimeStop(UniverseModel um, TimeWarp tw)
+        private void HandleTimeStop(UniverseModel um, TimeWarp tw, double timeDelta)
         {
-            if (tw.IsAutoWarpEngaged)
+            double timeAsSeconds = alarms[0].TimeAsSeconds;
+            double secondsToTarget = timeAsSeconds - um.UniverseTime;
+
+            if (tw.IsAutoWarpEngaged && secondsToTarget - timeDelta <= 10)
             {
                 tw.CancelAutoWarp();
             }
 
-            if (alarms[0].TimeAsSeconds - um.UniverseTime < 10)
+            if (secondsToTarget < 10)
             {
                 tw.SetRateIndex(0, true);
                 alarms.Remove(alarms[0]);
@@ -53,7 +58,7 @@ namespace AlarmClockForKSP2
             }
             else
             {
-                int safeRate = (int)Math.Log10(alarms[0].TimeAsSeconds - um.UniverseTime) + 4;
+                int safeRate = (int)Math.Log10(secondsToTarget) + 4;
                 if (safeRate < tw.CurrentRateIndex)
                 {
                     tw.SetRateIndex(safeRate, true);

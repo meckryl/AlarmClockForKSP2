@@ -1,0 +1,26 @@
+#close-button {
+    background-image: url('project://database/Assets/UI/Icons/close_button.png?fileID=2800000&guid=51049a67345acff45a44fa6d672a1deb&type=3#close_button');
+}
+
+#close-button:hover {
+    background-image: url('project://database/Assets/UI/Icons/close_button_highlighted.png?fileID=2800000&guid=5bb694792fb159a49add6cc93e054058&type=3#close_button_highlighted');
+}
+
+#close-button:active {
+    background-image: url('project://database/Assets/UI/Icons/close_button_highlighted.png?fileID=2800000&guid=5bb694792fb159a49add6cc93e054058&type=3#close_button_highlighted');
+}
+
+#icon.custom {
+    background-image: url('project://database/Assets/UI/Icons/custom_button.png?fileID=2800000&guid=e7c1cbeb50c6f5447a694a2a590da477&type=3#custom_button');
+}
+
+#icon.soi {
+    background-image: url('project://database/Assets/UI/Icons/soi_icon.png?fileID=2800000&guid=52a2502776df39948957ddab09fbd29b&type=3#soi_icon');
+}
+
+#icon.transfer {
+    background-image: url('project://database/Assets/UI/Icons/transfer_window_icon.png?fileID=2800000&guid=6dcd7a7bc84781f4ca673951ba4f305d&type=3#transfer_window_icon');
+}
+
+#icon.maneuver {
+}

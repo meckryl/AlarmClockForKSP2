@@ -1,8 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="&gt; new_alarm.transfer" display-tooltip-when-elided="true" style="-unity-font-definition: initial; font-size: 24px; -unity-text-align: middle-left; margin-top: 0; margin-left: 10px; -unity-font-style: normal; -unity-font: url(&apos;project://database/Assets/UI/Fonts/pixel_operator/PixelOperator.ttf?fileID=12800000&amp;guid=9ceec0e7d44939f4eb91cc3bd17a6652&amp;type=3#PixelOperator&apos;);" />
+    <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="spacing-label" />
     <ui:VisualElement name="transfer-window-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
         <ui:DropdownField label="From" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-from-dropdown" />
         <ui:DropdownField label="To" index="-1" choices="Moho,Eve,Kerbin,Duna,Dres,Jool,Eeloo" name="transfer-to-dropdown" />
         <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="transfer-time-label" />
-        <ui:Button text="Confirm" display-tooltip-when-elided="true" name="transfer-confirm-button" />
+        <ui:Button text="Confirm &gt;&gt;" display-tooltip-when-elided="true" name="transfer-confirm-button" style="-unity-font-definition: url(&apos;project://database/Packages/uitkforksp2.controls/Assets/Theme/Fonts/LEDCounter7/led_counter-7%20SDF.asset?fileID=11400000&amp;guid=33e1e97b69ec355479ba49006381fc06&amp;type=2#led_counter-7 SDF&apos;); font-size: 18px; padding-top: 10px; margin-top: 10px;" />
     </ui:VisualElement>
 </ui:UXML>
