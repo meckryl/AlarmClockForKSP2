@@ -100,5 +100,11 @@ namespace AlarmClockForKSP2
             AlarmsListView.Rebuild();
             return true;
         }
+
+        public void RebuildAlarmList()
+        {
+            AlarmsListView.Rebuild();
+
+        }
     }
 }

@@ -56,6 +56,7 @@ namespace AlarmClockForKSP2
                 alarms.Remove(alarms[0]);
                 tw.SetIsPaused(true);
                 um.SetTimePaused(true);
+                AlarmClockForKSP2Plugin.AlarmWindowController.AlarmsListController.RebuildAlarmList();
             }
             else
             {

@@ -15,7 +15,7 @@ namespace AlarmClockForKSP2
 
         private VisualElement _alarmsWindow;
 
-        private AlarmsListController _alarmsListController;
+        public AlarmsListController AlarmsListController;
         private NewAlarmMenuController _newAlarmMenuController;
         private TransferWindowMenuController _transferWindowMenuController;
         private CustomAlarmMenuController _customAlarmMenuController;
@@ -64,17 +64,17 @@ namespace AlarmClockForKSP2
             _rootElement = _window.rootVisualElement[0];
             _alarmsWindow = _rootElement.Q<VisualElement>("alarms-window");
             
-            _alarmsListController = new AlarmsListController(this);
+            AlarmsListController = new AlarmsListController(this);
             _newAlarmMenuController = new NewAlarmMenuController(this);
             _transferWindowMenuController = new TransferWindowMenuController(this);
             _customAlarmMenuController = new CustomAlarmMenuController(this);
 
-            _alarmsWindow.Add(_alarmsListController);
+            _alarmsWindow.Add(AlarmsListController);
             _alarmsWindow.Add(_newAlarmMenuController);
             _alarmsWindow.Add(_transferWindowMenuController);
             _alarmsWindow.Add(_customAlarmMenuController);
 
-            AlarmsList = _alarmsListController.AlarmsListView;
+            AlarmsList = AlarmsListController.AlarmsListView;
 
             if (_alarmsWindow != null)
             {
@@ -105,25 +105,25 @@ namespace AlarmClockForKSP2
             switch (state)
             {
                 case 0:
-                    _alarmsListController.IsVisible = true;
+                    AlarmsListController.IsVisible = true;
                     _newAlarmMenuController.IsVisible = false;
                     _transferWindowMenuController.IsVisible = false;
                     _customAlarmMenuController.IsVisible = false;
                     break;
                 case 1:
-                    _alarmsListController.IsVisible = false;
+                    AlarmsListController.IsVisible = false;
                     _newAlarmMenuController.IsVisible = true;
                     _transferWindowMenuController.IsVisible = false;
                     _customAlarmMenuController.IsVisible = false;
                     break;
                 case 2:
-                    _alarmsListController.IsVisible = false;
+                    AlarmsListController.IsVisible = false;
                     _newAlarmMenuController.IsVisible = false;
                     _transferWindowMenuController.IsVisible = true;
                     _customAlarmMenuController.IsVisible = false;
                     break;
                 case 3:
-                    _alarmsListController.IsVisible = false;
+                    AlarmsListController.IsVisible = false;
                     _newAlarmMenuController.IsVisible = false;
                     _transferWindowMenuController.IsVisible = false;
                     _customAlarmMenuController.IsVisible = true;
