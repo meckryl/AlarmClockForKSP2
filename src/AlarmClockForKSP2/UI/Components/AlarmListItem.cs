@@ -1,7 +1,7 @@
 ﻿using UnityEngine.UIElements;
 using SpaceWarp.API.Assets;
 
-namespace AlarmClockForKSP2
+namespace AlarmClockForKSP2.UI.Components
 {
     public class AlarmVisualElement : VisualElement
     {

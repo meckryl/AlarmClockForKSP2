@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class AlarmsListController : VisualElement
+    public class AlarmsListContext : VisualElement
     {
         private WindowController _parentController;
 
@@ -23,7 +23,7 @@ namespace AlarmClockForKSP2
             }
         }
 
-        public AlarmsListController(WindowController parentController)
+        public AlarmsListContext(WindowController parentController)
         {
             _parentController = parentController;
             TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/AlarmsList.uxml").CloneTree();
@@ -83,7 +83,8 @@ namespace AlarmClockForKSP2
             }
             if (elem.Q<Button>("close") is Button closeButton)
             {
-                closeButton.RegisterCallback<ClickEvent>(_ => {
+                closeButton.RegisterCallback<ClickEvent>(_ =>
+                {
                     TimeManager.Instance.alarms.RemoveAt(index);
                     AlarmsListView.Rebuild();
                 });

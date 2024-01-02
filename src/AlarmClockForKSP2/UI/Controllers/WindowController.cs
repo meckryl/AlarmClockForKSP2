@@ -15,10 +15,10 @@ namespace AlarmClockForKSP2
 
         private VisualElement _alarmsWindow;
 
-        public AlarmsListController AlarmsListController;
-        private NewAlarmMenuController _newAlarmMenuController;
+        public AlarmsListContext AlarmsListController;
+        private NewAlarmMenu _newAlarmMenuController;
         private TransferWindowMenuController _transferWindowMenuController;
-        private CustomAlarmMenuController _customAlarmMenuController;
+        private CustomAlarmMenu _customAlarmMenuController;
 
         public ListView AlarmsList;
 
@@ -64,10 +64,10 @@ namespace AlarmClockForKSP2
             _rootElement = _window.rootVisualElement[0];
             _alarmsWindow = _rootElement.Q<VisualElement>("alarms-window");
             
-            AlarmsListController = new AlarmsListController(this);
-            _newAlarmMenuController = new NewAlarmMenuController(this);
+            AlarmsListController = new AlarmsListContext(this);
+            _newAlarmMenuController = new NewAlarmMenu(this);
             _transferWindowMenuController = new TransferWindowMenuController(this);
-            _customAlarmMenuController = new CustomAlarmMenuController(this);
+            _customAlarmMenuController = new CustomAlarmMenu(this);
 
             _alarmsWindow.Add(AlarmsListController);
             _alarmsWindow.Add(_newAlarmMenuController);
