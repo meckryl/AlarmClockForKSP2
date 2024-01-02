@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement class="root" style="flex-grow: 0; background-color: rgba(62, 124, 174, 0.78); width: 480px; height: 150px; flex-shrink: 1; max-height: 150px; min-height: 100px; max-width: 480px; min-width: 480px; align-items: stretch;">
+        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="alert-label" style="-unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/UI/Fonts/pixel_operator/PixelOperator8.ttf?fileID=12800000&amp;guid=3243bff53158c6d4d9b1332456e329e0&amp;type=3#PixelOperator8&apos;); overflow: hidden; max-height: none; height: 94px; -unity-text-align: middle-center; font-size: 20px;" />
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+            <ui:Button display-tooltip-when-elided="true" name="to-alarms-button" style="flex-grow: 1; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-image: none; -unity-background-scale-mode: scale-to-fit; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px;">
+                <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Icons/Alarm_Icon.png?fileID=2800000&amp;guid=cb239caa50e4ecd4b8b630662511eaf6&amp;type=3#Alarm_Icon&apos;); -unity-background-scale-mode: scale-to-fit;" />
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" name="close-button" style="flex-grow: 1; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px;">
+                <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Icons/close_button.png?fileID=2800000&amp;guid=51049a67345acff45a44fa6d672a1deb&amp;type=3#close_button&apos;); -unity-background-scale-mode: scale-to-fit;" />
+            </ui:Button>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

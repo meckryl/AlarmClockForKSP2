@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="alarms-list-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: -15px; display: flex;">
-        <ui:Button text="New Alarm" display-tooltip-when-elided="true" name="new-alarm-button" />
+        <ui:Button text="+" display-tooltip-when-elided="true" name="new-alarm-button" style="-unity-font-definition: url(&apos;project://database/Packages/uitkforksp2.controls/Assets/Theme/Fonts/LEDCounter7/led_counter-7%20SDF.asset?fileID=11400000&amp;guid=33e1e97b69ec355479ba49006381fc06&amp;type=2#led_counter-7 SDF&apos;); font-size: 18px; padding-top: 10px; margin-bottom: 10px;" />
+        <ui:ListView focusable="true" name="alarms-listview" style="height: 350px; min-height: 350px; max-height: 4000px; margin-top: 0; padding-top: 0;" />
     </ui:VisualElement>
 </ui:UXML>

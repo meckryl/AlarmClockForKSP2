@@ -48,7 +48,12 @@ namespace AlarmClockForKSP2
 
                 int itemHeight = 40;
 
-                AlarmsListView = new ListView(TimeManager.Instance.alarms, itemHeight, makeItem, bindItem);
+                AlarmsListView = this.Q<ListView>("alarms-listview");
+                AlarmsListView.itemsSource = TimeManager.Instance.alarms;
+                AlarmsListView.fixedItemHeight = itemHeight;
+                AlarmsListView.makeItem = makeItem;
+                AlarmsListView.bindItem = bindItem;
+
                 AlarmsListView.reorderable = false;
 
                 Add(AlarmsListView);

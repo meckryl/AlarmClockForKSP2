@@ -51,6 +51,7 @@ namespace AlarmClockForKSP2
 
             if (secondsToTarget < 10)
             {
+                AlarmClockForKSP2Plugin.CreateAlert(alarms[0].Name);
                 tw.SetRateIndex(0, true);
                 alarms.Remove(alarms[0]);
                 tw.SetIsPaused(true);

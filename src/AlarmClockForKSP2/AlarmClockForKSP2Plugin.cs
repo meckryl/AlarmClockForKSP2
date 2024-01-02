@@ -33,7 +33,8 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
     public static AlarmClockForKSP2Plugin Instance { get; set; }
 
     // Window Controller Reference
-    internal WindowController AlarmWindowController;
+    internal static WindowController AlarmWindowController;
+    internal static AlertController AlertWindowController;
 
     internal bool GameStateValid = false;
 
@@ -53,7 +54,7 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
 
         WindowOptions windowOptions = new WindowOptions
         {
-            WindowId = "AlarmClockForKSP2_TestWindow",
+            WindowId = "AlarmClockForKSP2_Window",
 
             Parent = null,
 
@@ -70,7 +71,29 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
 
         UIDocument alarmWindow = Window.Create(windowOptions, uxml);
 
+        VisualTreeAsset alertuxml = AssetManager.GetAsset<VisualTreeAsset>($"{ModGuid}/" + "alarmclock-resources/UI/AlertWindow.uxml");
+
+        WindowOptions alertWindowOptions = new WindowOptions
+        {
+            WindowId = "AlarmClockForKSP2_Alert",
+
+            Parent = null,
+
+            IsHidingEnabled = true,
+
+            DisableGameInputForTextFields = true,
+
+            MoveOptions = new MoveOptions
+            {
+                IsMovingEnabled = false,
+                CheckScreenBounds = true,
+            }
+        };
+
+        UIDocument alertWindow = Window.Create(alertWindowOptions, alertuxml);
+
         AlarmWindowController = alarmWindow.gameObject.AddComponent<WindowController>();
+        AlertWindowController = alertWindow.gameObject.AddComponent<AlertController>();
 
         // Register Flight AppBar button
         Appbar.RegisterAppButton(
@@ -163,6 +186,16 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
             AlarmWindowController.IsWindowOpen = !AlarmWindowController.IsWindowOpen;
         }
         TimeManager.Instance.Update();
+    }
+
+    public static void OpenMainWindow()
+    {
+        AlarmWindowController.IsWindowOpen = true;
+    }
+
+    public static void CreateAlert(string title)
+    {
+        AlertWindowController.DisplayAlert(title);
     }
 
 }
