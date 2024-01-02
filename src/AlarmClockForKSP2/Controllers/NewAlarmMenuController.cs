@@ -33,7 +33,7 @@ namespace AlarmClockForKSP2
             if (root != null)
             {
                 Add(root);
-                ManeuverButton = this.Q<Button>("manuever-button");
+                ManeuverButton = this.Q<Button>("maneuver-button");
                 ManeuverButton.clicked += ManeuverButtonClicked;
 
                 SoiButton = this.Q<Button>("soi-button");
