@@ -10,7 +10,7 @@ namespace AlarmClockForKSP2
 
         private bool _isVisible = false;
 
-        public Button ManueverButton;
+        public Button ManeuverButton;
         public Button SoiButton;
         public Button TransferWindowButton;
         public Button CustomAlarmButton;
@@ -33,8 +33,8 @@ namespace AlarmClockForKSP2
             if (root != null)
             {
                 Add(root);
-                ManueverButton = this.Q<Button>("manuever-button");
-                ManueverButton.clicked += ManeuverButtonClicked;
+                ManeuverButton = this.Q<Button>("manuever-button");
+                ManeuverButton.clicked += ManeuverButtonClicked;
 
                 SoiButton = this.Q<Button>("soi-button");
                 SoiButton.clicked += SOIButtonClicked;

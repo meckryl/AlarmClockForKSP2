@@ -157,7 +157,7 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         MessageManager.MessageCenter.PersistentSubscribe<ManeuverCreatedMessage>(SimulationManager.UpdateCurrentManeuver);
         MessageManager.MessageCenter.PersistentSubscribe<ManeuverMessageBase>(SimulationManager.UpdateCurrentManeuver);
 
-        //Add if ManueverMessageBase doesn't work
+        //Add if ManeuverMessageBase doesn't work
         //MessageManager.MessageCenter.PersistentSubscribe<ManeuverRemovedMessage>(SimulationManager.UpdateCurrentManeuver);
         //MessageManager.MessageCenter.PersistentSubscribe<ManeuverFinishedMessage>(SimulationManager.UpdateCurrentManeuver);
 
