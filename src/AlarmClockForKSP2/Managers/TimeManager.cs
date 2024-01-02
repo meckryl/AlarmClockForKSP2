@@ -1,9 +1,4 @@
-﻿using SpaceWarp;
-using JetBrains.Annotations;
-using KSP.Game;
-using KSP.Sim;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using KSP.Game;
 using KSP.Sim.impl;
 using KSP.Messages;
 

@@ -1,6 +1,4 @@
 ﻿using KSP.UI.Binding;
-using Shapes;
-using VehiclePhysics;
 
 namespace AlarmClockForKSP2
 {

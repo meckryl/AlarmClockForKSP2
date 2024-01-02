@@ -1,7 +1,6 @@
 ﻿using UnityEngine.UIElements;
 using UnityEngine;
 using UitkForKsp2.API;
-using KSP.UI.Binding;
 
 namespace AlarmClockForKSP2
 {
