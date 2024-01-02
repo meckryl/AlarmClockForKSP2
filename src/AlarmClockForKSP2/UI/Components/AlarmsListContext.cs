@@ -4,71 +4,47 @@ using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class AlarmsListContext : VisualElement
+    public class AlarmsListContext : ContextElement
     {
-        private WindowController _parentController;
-
-        private bool _isVisible = false;
-
         public Button NewAlarmButton;
         public ListView AlarmsListView;
 
-        public bool IsVisible
+        public AlarmsListContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/AlarmsList.uxml")
         {
-            get => _isVisible;
-            set
+            NewAlarmButton = this.Q<Button>("new-alarm-button");
+            NewAlarmButton.clicked += NewAlarmButtonClicked;
+
+            List<Alarm> alarms = TimeManager.Instance.alarms;
+
+            Func<VisualElement> makeItem = () =>
             {
-                _isVisible = value;
-                style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
-            }
-        }
+                AlarmVisualElement alarmVisualElement = new AlarmVisualElement();
 
-        public AlarmsListContext(WindowController parentController)
-        {
-            _parentController = parentController;
-            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/AlarmsList.uxml").CloneTree();
+                return alarmVisualElement;
+            };
 
-            if (root != null)
-            {
-                Add(root);
-                NewAlarmButton = this.Q<Button>("new-alarm-button");
-                NewAlarmButton.clicked += NewAlarmButtonClicked;
+            Action<VisualElement, int> bindItem = (e, i) => BindItem(e as AlarmVisualElement, i);
 
-                List<Alarm> alarms = TimeManager.Instance.alarms;
+            int itemHeight = 46;
 
-                Func<VisualElement> makeItem = () =>
-                {
-                    AlarmVisualElement alarmVisualElement = new AlarmVisualElement();
+            AlarmsListView = this.Q<ListView>("alarms-listview");
+            AlarmsListView.itemsSource = TimeManager.Instance.alarms;
+            AlarmsListView.fixedItemHeight = itemHeight;
+            AlarmsListView.makeItem = makeItem;
+            AlarmsListView.bindItem = bindItem;
 
-                    return alarmVisualElement;
-                };
+            AlarmsListView.reorderable = false;
 
-                Action<VisualElement, int> bindItem = (e, i) => BindItem(e as AlarmVisualElement, i);
+            //Add(AlarmsListView);
 
-                int itemHeight = 46;
+            PersistentDataManager.RegisterAlarmReset(ResetAlarms);
+            MessageManager.MessageCenter.PersistentSubscribe<QuitToMainMenuStartedMessage>(_ => ResetAlarms());
 
-                AlarmsListView = this.Q<ListView>("alarms-listview");
-                AlarmsListView.itemsSource = TimeManager.Instance.alarms;
-                AlarmsListView.fixedItemHeight = itemHeight;
-                AlarmsListView.makeItem = makeItem;
-                AlarmsListView.bindItem = bindItem;
-
-                AlarmsListView.reorderable = false;
-
-                Add(AlarmsListView);
-
-                PersistentDataManager.RegisterAlarmReset(ResetAlarms);
-                MessageManager.MessageCenter.PersistentSubscribe<QuitToMainMenuStartedMessage>(_ => ResetAlarms());
-            }
-            else
-            {
-                AlarmClockForKSP2Plugin.Instance.SWLogger.LogError("Alarms List Container was null");
-            }
         }
 
         private void NewAlarmButtonClicked()
         {
-            _parentController.RefreshVisibility(1);
+            _swapContext((int)MainWindowContext.NewAlarm);
         }
 
         private void BindItem(AlarmVisualElement elem, int index)

@@ -4,46 +4,21 @@ using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class TransferWindowMenuController : VisualElement
+    public class TransferWindowContext : ContextElement
     {
-        private WindowController _parentController;
-
-        private bool _isVisible = false;
-
         public DropdownField TransferFromDropdown;
         public DropdownField TransferToDropdown;
         public Label TransferTimeLabel;
         public Button TransferConfirmButton;
 
-        public bool IsVisible
+        public TransferWindowContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/TransferWindowMenu.uxml")
         {
-            get => _isVisible;
-            set
-            {
-                _isVisible = value;
-                style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
-            }
-        }
+            TransferFromDropdown = this.Q<DropdownField>("transfer-from-dropdown");
+            TransferToDropdown = this.Q<DropdownField>("transfer-to-dropdown");
+            TransferTimeLabel = this.Q<Label>("transfer-time-label");
+            TransferConfirmButton = this.Q<Button>("transfer-confirm-button");
 
-        public TransferWindowMenuController(WindowController parentController)
-        {
-            _parentController = parentController;
-            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/TransferWindowMenu.uxml").CloneTree();
-
-            if (root != null)
-            {
-                Add(root);
-                TransferFromDropdown = this.Q<DropdownField>("transfer-from-dropdown");
-                TransferToDropdown = this.Q<DropdownField>("transfer-to-dropdown");
-                TransferTimeLabel = this.Q<Label>("transfer-time-label");
-
-                TransferConfirmButton = this.Q<Button>("transfer-confirm-button");
-                TransferConfirmButton.clicked += TransferConfirmButtonClicked;
-            }
-            else
-            {
-                AlarmClockForKSP2Plugin.Instance.SWLogger.LogError("Transfer Window Container was null");
-            }
+            TransferConfirmButton.clicked += TransferConfirmButtonClicked;
         }
 
         private void TransferConfirmButtonClicked()
@@ -57,9 +32,9 @@ namespace AlarmClockForKSP2
                 GameManager.Instance.Game.UniverseModel.UniverseTime);
 
             TimeManager.Instance.AddAlarm($"{origin} to {destination}", nextWindow);
-            _parentController.AlarmsList.Rebuild();
+            AlarmClockForKSP2Plugin.Instance.AlarmWindowController.AlarmsList.Rebuild();
 
-            _parentController.RefreshVisibility(0);
+            _swapContext((int)MainWindowContext.AlarmsList);
         }
     }
 }

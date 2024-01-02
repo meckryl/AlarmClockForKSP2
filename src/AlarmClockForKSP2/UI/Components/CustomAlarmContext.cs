@@ -3,75 +3,50 @@ using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    public class CustomAlarmMenuController : VisualElement
+    public class CustomAlarmContext : ContextElement
     {
-        private WindowController _parentController;
+        private TextField _nameTextField;
+        private IntegerField _yearIntegerField;
+        private IntegerField _dayIntegerField;
+        private IntegerField _hourIntegerField;
+        private IntegerField _minuteIntegerField;
+        private IntegerField _secondIntegerField;
+        private Button _customConfirmButton;
 
-        private bool _isVisible = false;
-
-        public TextField NameTextField;
-        public IntegerField YearIntegerField;
-        public IntegerField DayIntegerField;
-        public IntegerField HourIntegerField;
-        public IntegerField MinuteIntegerField;
-        public IntegerField SecondIntegerField;
-        public Button CustomConfirmButton;
-
-        public bool IsVisible
+        public CustomAlarmContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/CustomAlarmMenu.uxml")
         {
-            get => _isVisible;
-            set
-            {
-                _isVisible = value;
-                style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
-            }
-        }
 
-        public CustomAlarmMenuController(WindowController parentController)
-        {
-            _parentController = parentController;
-            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/CustomAlarmMenu.uxml").CloneTree();
+            _nameTextField = this.Q<TextField>("name-textfield");
+            _yearIntegerField = this.Q<IntegerField>("year-integerfield");
+            _dayIntegerField = this.Q<IntegerField>("day-integerfield");
+            _hourIntegerField = this.Q<IntegerField>("hour-integerfield");
+            _minuteIntegerField = this.Q<IntegerField>("minute-integerfield");
+            _secondIntegerField = this.Q<IntegerField>("second-integerfield");
+            _customConfirmButton = this.Q<Button>("custom-confirm-button");
 
-            if (root != null)
-            {
-                Add(root);
-
-                NameTextField = this.Q<TextField>("name-textfield");
-                YearIntegerField = this.Q<IntegerField>("year-integerfield");
-                DayIntegerField = this.Q<IntegerField>("day-integerfield");
-                HourIntegerField = this.Q<IntegerField>("hour-integerfield");
-                MinuteIntegerField = this.Q<IntegerField>("minute-integerfield");
-                SecondIntegerField = this.Q<IntegerField>("second-integerfield");
-                CustomConfirmButton = this.Q<Button>("custom-confirm-button");
-
-                CustomConfirmButton.clicked += CustomConfirmButtonClicked;
-            }
-            else
-            {
-                AlarmClockForKSP2Plugin.Instance.SWLogger.LogError("Custom Alarm Container was null");
-            }
+            _customConfirmButton.clicked += CustomConfirmButtonClicked;
         }
 
         private void CustomConfirmButtonClicked()
         {
             FormattedTimeWrapper time = new FormattedTimeWrapper(
-                YearIntegerField.value - 1,
-                DayIntegerField.value - 1,
-                HourIntegerField.value,
-                MinuteIntegerField.value,
-                SecondIntegerField.value
+                _yearIntegerField.value - 1,
+                _dayIntegerField.value - 1,
+                _hourIntegerField.value,
+                _minuteIntegerField.value,
+                _secondIntegerField.value
                 );
 
-            TimeManager.Instance.AddAlarm(NameTextField.value, time);
-            _parentController.AlarmsList.Rebuild();
+            TimeManager.Instance.AddAlarm(_nameTextField.value, time);
+            AlarmClockForKSP2Plugin.Instance.AlarmWindowController.AlarmsList.Rebuild();
 
-            YearIntegerField.value = 1;
-            DayIntegerField.value = 1;
-            HourIntegerField.value = 0;
-            MinuteIntegerField.value = 0;
-            SecondIntegerField.value = 0;
+            _yearIntegerField.value = 1;
+            _dayIntegerField.value = 1;
+            _hourIntegerField.value = 0;
+            _minuteIntegerField.value = 0;
+            _secondIntegerField.value = 0;
 
-            _parentController.RefreshVisibility(0);
+            _swapContext((int)MainWindowContext.AlarmsList);
         }
     }
 }

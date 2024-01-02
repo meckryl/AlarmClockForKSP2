@@ -46,12 +46,12 @@ namespace AlarmClockForKSP2
 
             if (secondsToTarget < 10)
             {
-                AlarmClockForKSP2Plugin.CreateAlert(alarms[0].Name);
+                AlarmClockForKSP2Plugin.Instance.CreateAlert(alarms[0].Name);
                 tw.SetRateIndex(0, true);
                 alarms.Remove(alarms[0]);
                 tw.SetIsPaused(true);
                 um.SetTimePaused(true);
-                AlarmClockForKSP2Plugin.AlarmWindowController.AlarmsListController.RebuildAlarmList();
+                AlarmClockForKSP2Plugin.Instance.AlarmWindowController.AlarmsListController.RebuildAlarmList();
             }
             else
             {

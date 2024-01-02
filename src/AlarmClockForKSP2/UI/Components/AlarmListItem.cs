@@ -1,16 +1,11 @@
 ﻿using UnityEngine.UIElements;
 using SpaceWarp.API.Assets;
 
-namespace AlarmClockForKSP2.UI.Components
+namespace AlarmClockForKSP2
 {
-    public class AlarmVisualElement : VisualElement
+    public class AlarmVisualElement : UITKElement
     {
-        public AlarmVisualElement()
-        {
-            TemplateContainer root = AssetManager.GetAsset<VisualTreeAsset>($"alarmclockforksp2/" + "alarmclock-resources/UI/AlarmEntry.uxml").CloneTree();
-
-            Add(root);
-        }
+        public AlarmVisualElement() : base("alarmclock-resources/UI/AlarmEntry.uxml") { }
 
     }
 }

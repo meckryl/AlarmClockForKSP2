@@ -33,8 +33,8 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
     public static AlarmClockForKSP2Plugin Instance { get; set; }
 
     // Window Controller Reference
-    internal static WindowController AlarmWindowController;
-    internal static AlertController AlertWindowController;
+    internal WindowController AlarmWindowController;
+    internal AlertController AlertWindowController;
 
     internal bool GameStateValid = false;
 
@@ -186,12 +186,12 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         TimeManager.Instance.Update();
     }
 
-    public static void OpenMainWindow()
+    public void OpenMainWindow()
     {
         AlarmWindowController.IsWindowOpen = true;
     }
 
-    public static void CreateAlert(string title)
+    public void CreateAlert(string title)
     {
         AlertWindowController.DisplayAlert(title);
     }

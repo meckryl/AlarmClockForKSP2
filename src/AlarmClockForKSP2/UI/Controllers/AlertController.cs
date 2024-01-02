@@ -52,7 +52,7 @@ namespace AlarmClockForKSP2
 
         private void OpenAlarmsClicked()
         {
-            AlarmClockForKSP2Plugin.OpenMainWindow();
+            AlarmClockForKSP2Plugin.Instance.OpenMainWindow();
             IsWindowOpen = false;
         }
 

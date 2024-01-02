@@ -5,6 +5,13 @@ using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
+    enum MainWindowContext
+    {
+        AlarmsList,
+        NewAlarm,
+        TransferWindow,
+        Custom
+    }
     public class WindowController : MonoBehaviour
     {
         // The UIDocument component of the window game object
@@ -16,9 +23,9 @@ namespace AlarmClockForKSP2
         private VisualElement _alarmsWindow;
 
         public AlarmsListContext AlarmsListController;
-        private NewAlarmMenu _newAlarmMenuController;
-        private TransferWindowMenuController _transferWindowMenuController;
-        private CustomAlarmMenu _customAlarmMenuController;
+        private NewAlarmContext _newAlarmMenuController;
+        private TransferWindowContext _transferWindowMenuController;
+        private CustomAlarmContext _customAlarmMenuController;
 
         public ListView AlarmsList;
 
@@ -34,11 +41,7 @@ namespace AlarmClockForKSP2
 
                 // Set the display style of the root element to show or hide the window
                 _rootElement.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
-                RefreshVisibility(0);
-                // Alternatively, you can deactivate the window game object to close the window and stop it from updating,
-                // which is useful if you perform expensive operations in the window update loop. However, this will also
-                // mean you will have to re-register any event handlers on the window elements when re-enabled in OnEnable.
-                // gameObject.SetActive(value);
+                SwapContext((int)MainWindowContext.AlarmsList);
 
                 // Update the Flight AppBar button state
                 GameObject.Find(AlarmClockForKSP2Plugin.ToolbarFlightButtonID)
@@ -64,10 +67,10 @@ namespace AlarmClockForKSP2
             _rootElement = _window.rootVisualElement[0];
             _alarmsWindow = _rootElement.Q<VisualElement>("alarms-window");
             
-            AlarmsListController = new AlarmsListContext(this);
-            _newAlarmMenuController = new NewAlarmMenu(this);
-            _transferWindowMenuController = new TransferWindowMenuController(this);
-            _customAlarmMenuController = new CustomAlarmMenu(this);
+            AlarmsListController = new AlarmsListContext(SwapContext);
+            _newAlarmMenuController = new NewAlarmContext(SwapContext);
+            _transferWindowMenuController = new TransferWindowContext(SwapContext);
+            _customAlarmMenuController = new CustomAlarmContext(SwapContext);
 
             _alarmsWindow.Add(AlarmsListController);
             _alarmsWindow.Add(_newAlarmMenuController);
@@ -99,7 +102,7 @@ namespace AlarmClockForKSP2
             IsWindowOpen = false;
         }
 
-        public void RefreshVisibility(int state)
+        private void SwapContext(int state)
         {
 
             switch (state)
