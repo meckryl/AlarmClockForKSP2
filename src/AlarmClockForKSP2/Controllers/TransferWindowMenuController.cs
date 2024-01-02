@@ -48,15 +48,15 @@ namespace AlarmClockForKSP2
 
         private void TransferConfirmButtonClicked()
         {
-            int originIndex = TransferFromDropdown.index;
-            int destinationIndex = TransferToDropdown.index;
+            string origin = TransferFromDropdown.value;
+            string destination = TransferToDropdown.value;
 
             double nextWindow = TransferWindowPlanner.getNextTransferWindow(
-                TransferWindowPlanner.planets[originIndex],
-                TransferWindowPlanner.planets[destinationIndex],
+                origin,
+                destination,
                 GameManager.Instance.Game.UniverseModel.UniverseTime);
 
-            TimeManager.Instance.AddAlarm($"{TransferWindowPlanner.planets[originIndex].Name} to {TransferWindowPlanner.planets[destinationIndex].Name}", nextWindow);
+            TimeManager.Instance.AddAlarm($"{origin} to {destination}", nextWindow);
             _parentController.AlarmsList.Rebuild();
 
             _parentController.RefreshVisibility(0);

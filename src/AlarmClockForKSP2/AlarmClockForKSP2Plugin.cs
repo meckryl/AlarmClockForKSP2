@@ -142,8 +142,6 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         Logger.LogInfo($"Option 1: {configValue.Value}");
         Testing.SubscribeToMessages();
 
-        TransferWindowPlanner.instantiateBodies();
-
         PersistentDataManager.InititializePersistentDataManager(SpaceWarpPlugin.ModGuid);
 
         LinkManagersToMessages();

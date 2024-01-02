@@ -1,111 +1,98 @@
-﻿namespace AlarmClockForKSP2
-{
-   enum Planet
-    {
-        Moho,
-        Eve,
-        Kerbin,
-        Duna,
-        Dres,
-        Jool,
-        Eeloo
-    }
-    public struct orbitalBody
-    {
-        public orbitalBody(int index, double[] targets, double lengthOfOrbit, double initialPhase, string name)
-        {
-            Index = index;
-            Targets = targets;
-            LengthOfOrbit = lengthOfOrbit;
-            InitialPhase = initialPhase;
-            Name = name;
-        }
+﻿using AlarmClockForKSP2.Managers;
+using KSP.Game;
+using KSP.Sim.impl;
 
-        public int Index;
-        public double[] Targets;
-        public double LengthOfOrbit;
-        public double InitialPhase;
-        public string Name;
-    }
+namespace AlarmClockForKSP2
+{
     public static class TransferWindowPlanner
     {
-        public static orbitalBody[] planets;
+        public const float GRAVITATIONAL_CONSTANT = 6.67e-11f;
 
-        public static void instantiateBodies()
+        private static int orbitalTreeDepth(CelestialBodyComponent body)
         {
-            planets = new orbitalBody[7];
-
-            double[] mohoTargets = { double.NaN, 58.49, 76.05, 90.64, 103.67, 108.92, 110.7 };
-            planets[0] = new orbitalBody(
-                (int)Planet.Moho,
-                mohoTargets,
-                615.49,
-                84.92,
-                "Moho");
-
-            double[] eveTargets = { 230.87, double.NaN, 36.07, 66.07, 92.04, 102.24, 105.67 };
-            planets[1] = new orbitalBody(
-                (int)Planet.Eve,
-                eveTargets,
-                1571.7,
-                15.00,
-                "Eve");
-
-            double[] kerbinTargets = { 108.21, 305.87, double.NaN, 44.36, 82.06, 96.58, 101.42 };
-            planets[2] = new orbitalBody(
-                (int)Planet.Kerbin,
-                kerbinTargets,
-                2556.50,
-                0,
-                "Kerbin");
-
-            double[] dunaTargets = { -158.32, -168.68, -75.19, double.NaN, 62.21, 85.52, 93.19 };
-            planets[3] = new orbitalBody(
-                (int)Planet.Duna,
-                dunaTargets,
-                4809.80,
-                135.51,
-                "Duna");
-
-            double[] dresTargets = { -29.86, -204.51, -329.68, -145.8, double.NaN, 51.95, 68.52 };
-            planets[4] = new orbitalBody(
-                (int)Planet.Dres,
-                dresTargets,
-                13303.60,
-                10.02, 
-                "Dres");
-
-            double[] joolTargets = { -297.62, -178.48, -48.65, -31.06, -99.83, double.NaN, 31.01 };
-            planets[5] = new orbitalBody(
-                (int)Planet.Jool,
-                joolTargets,
-                29072.60,
-                238.43, 
-                "Jool");
-
-            double[] eelooTargets = { -49.76, -82.55, -80.33, -247.09, -185.43, -43.49, double.NaN };
-            planets[6] = new orbitalBody(
-                (int)Planet.Eeloo,
-                eelooTargets,
-                43608.90,
-                309.98,
-                "Eeloo");
+            if (body.GetRelevantStar() == null) return 0;
+            if (body.Orbit.referenceBody.Name == body.GetRelevantStar().Name) return 1;
+            return 2; //For now assume that moons don't have other bodies in orbit around them
         }
 
-        public static double getNextTransferWindow(orbitalBody origin, orbitalBody destination, double currentTime)
+        private static CelestialBodyComponent findNearestParent(CelestialBodyComponent originBody, CelestialBodyComponent destinationBody)
         {
-            if (planets is null) instantiateBodies();
+            int originDepth = orbitalTreeDepth(originBody);
+            int destinationDepth = orbitalTreeDepth(destinationBody);
 
-            AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"{origin.Name} : {origin.Index}, {destination.Name} : {destination.Index}");
-            if (origin.Index == destination.Index) return -1;
+            if (originDepth == 0) return originBody;
+            if (destinationDepth == 0) return destinationBody;
 
-            double originDegreesPerHour = 360 / origin.LengthOfOrbit;
-            double destinationDegreesPerHour = 360 / destination.LengthOfOrbit;
+            CelestialBodyComponent originBodyDummy = originBody;
+            CelestialBodyComponent destinationBodyDummy = destinationBody;
+
+            for (int nodesTraveresed = 0; nodesTraveresed < originDepth - destinationDepth; nodesTraveresed++)
+                originBodyDummy = originBodyDummy.Orbit.referenceBody;
+
+            for (int nodesTraveresed = 0; nodesTraveresed < destinationDepth - originDepth; nodesTraveresed++)
+                destinationBodyDummy = destinationBodyDummy.Orbit.referenceBody;
+
+            while (originBodyDummy.Name != destinationBodyDummy.Name)
+            {
+                originBodyDummy = originBodyDummy.Orbit.referenceBody;
+                destinationBodyDummy = destinationBodyDummy.Orbit.referenceBody;
+            }
+
+            return originBodyDummy;
+        }
+
+        /// <summary>
+        /// Original code by:
+        /// https://github.com/ABritInSpace/TransferCalculator-KSP2
+        /// License: https://raw.githubusercontent.com/ABritInSpace/TransferCalculator-KSP2/master/LICENSE.md
+        /// </summary>
+        private static double idealTransferAngle(CelestialBodyComponent originBody, CelestialBodyComponent destinationBody, CelestialBodyComponent referenceBody)
+        {
+            double meanSemiMajorAxis = (originBody.Orbit.semiMajorAxis + destinationBody.Orbit.semiMajorAxis) / 2;
+            double time = MathF.PI * MathF.Sqrt((float)(meanSemiMajorAxis * meanSemiMajorAxis * meanSemiMajorAxis) / ((float)referenceBody.Mass * GRAVITATIONAL_CONSTANT));
+
+            double transferAngle = (((180 - ((time / destinationBody.Orbit.period) * 360)) % 360) + 360) % 360;
+
+            return transferAngle;
+        }
+
+        public static double getNextTransferWindow(string origin, string destination, double currentTime)
+        {
+            GameInstance game = GameManager.Instance?.Game;
+            if (game == null) return -1;
+
+            CelestialBodyComponent originBody = game.UniverseModel.FindCelestialBodyByName(origin);
+            CelestialBodyComponent destinationBody = game.UniverseModel.FindCelestialBodyByName(destination);
+            if (originBody == null || destinationBody == null) return -1;
+
+            AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"Origin: {originBody.Name}");
+            AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"Destination: {destinationBody.Name}");
+
+            //If origin body and reference body are equal, or one body is in orbit around the other, then all times are euqally viable for transfer
+            if (originBody.Name == destinationBody.Name) return 0;
+            if (originBody.Name == destinationBody.Orbit.referenceBody.Name || originBody.Orbit.referenceBody.Name == destinationBody.Name) return 0;
+
+            //If the origin and target are at different stars then default to -1 for now
+            if (originBody.GetRelevantStar().Name != destinationBody.GetRelevantStar().Name) return -1;
+
+            CelestialBodyComponent referenceBody = findNearestParent(originBody, destinationBody);
+            AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"Reference: {referenceBody.Name}");
+
+            if (originBody.Orbit.referenceBody.Name != referenceBody.Name) originBody = originBody.Orbit.referenceBody;
+            if (destinationBody.Orbit.referenceBody.Name != referenceBody.Name) destinationBody = destinationBody.Orbit.referenceBody;
+
+            double transferAngle = idealTransferAngle(originBody, destinationBody, referenceBody);
+
+            AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"Transfer Angle: {transferAngle}");
+
+            //Temporarily convert to hours to avoid rounding issues
+            double originDegreesPerHour = 360 * 3600 / originBody.Orbit.period;
+            double destinationDegreesPerHour = 360 * 3600 / destinationBody.Orbit.period;
 
             double relativeAngularSpeed = destinationDegreesPerHour - originDegreesPerHour;
 
-            double currentPhase = (360 + (destination.InitialPhase - origin.InitialPhase) + (currentTime/3600) * relativeAngularSpeed) % 360;
-            double targetPhase = (360 + origin.Targets[destination.Index]) % 360;
+            double currentPhase = Vector3d.SignedAngle((Vector3d)destinationBody.Position.localPosition, (Vector3d)originBody.Position.localPosition, Vector3d.up);
+            double targetPhase = (360 + transferAngle) % 360;
 
             double nextWindow;
 
