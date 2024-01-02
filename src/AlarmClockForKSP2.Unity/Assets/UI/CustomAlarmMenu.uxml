@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Label tabindex="-1" text="&gt; new_alarm.custom" display-tooltip-when-elided="true" style="-unity-font-definition: initial; font-size: 24px; -unity-text-align: middle-left; margin-top: 0; margin-left: 10px; -unity-font-style: normal; -unity-font: url(&apos;project://database/Assets/UI/Fonts/pixel_operator/PixelOperator.ttf?fileID=12800000&amp;guid=9ceec0e7d44939f4eb91cc3bd17a6652&amp;type=3#PixelOperator&apos;);" />
     <ui:VisualElement name="custom-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
-        <ui:TextField picking-mode="Ignore" label="Name" value="Name" name="name-textfield" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;" />
+        <ui:TextField picking-mode="Ignore" label="Name" name="name-textfield" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;" />
         <ui:IntegerField label="Year" value="1" is-delayed="false" name="year-integerfield" />
         <ui:IntegerField label="Day" value="1" is-delayed="false" name="day-integerfield" />
         <ui:IntegerField label="Hour" value="0" is-delayed="false" name="hour-integerfield" />

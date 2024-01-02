@@ -46,7 +46,7 @@ namespace AlarmClockForKSP2
 
                 Action<VisualElement, int> bindItem = (e, i) => BindItem(e as AlarmVisualElement, i);
 
-                int itemHeight = 40;
+                int itemHeight = 46;
 
                 AlarmsListView = this.Q<ListView>("alarms-listview");
                 AlarmsListView.itemsSource = TimeManager.Instance.alarms;
@@ -80,7 +80,7 @@ namespace AlarmClockForKSP2
             }
             if (elem.Q<Label>("time") is Label timeLabel)
             {
-                timeLabel.text = TimeManager.Instance.alarms[index].Time.asString();
+                timeLabel.text = TimeManager.Instance.alarms[index].Time.asShortString();
             }
             if (elem.Q<Button>("close") is Button closeButton)
             {

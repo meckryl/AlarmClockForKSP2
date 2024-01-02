@@ -51,6 +51,12 @@ namespace AlarmClockForKSP2
                 "Day: " + $"{_time.Day + 1} " +
                 $"{_time.Hour:00}:{_time.Minute:00}:{_time.Second:00}";
         }
+        public string asShortString()
+        {
+            return "Y: " + $"{_time.Year + 1} " +
+                "D: " + $"{_time.Day + 1} " +
+                $"{_time.Hour:00}:{_time.Minute:00}:{_time.Second:00}";
+        }
         public double asSeconds()
         {
             return _time.Year * DaysInYear * HoursInDay * 3600
