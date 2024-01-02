@@ -39,7 +39,7 @@ namespace AlarmClockForKSP2
             double timeAsSeconds = alarms[0].TimeAsSeconds;
             double secondsToTarget = timeAsSeconds - um.UniverseTime;
 
-            if (tw.IsAutoWarpEngaged && secondsToTarget - timeDelta <= 10)
+            if (tw.IsAutoWarpEngaged && tw._autoWarpTargetUniversalTime > timeAsSeconds && secondsToTarget - timeDelta <= 10)
             {
                 tw.CancelAutoWarp();
             }
