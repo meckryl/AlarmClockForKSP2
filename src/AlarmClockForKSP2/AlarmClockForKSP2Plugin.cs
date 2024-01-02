@@ -111,14 +111,6 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
             isOpen => AlarmWindowController.IsWindowOpen = isOpen
         );
 
-        // Register KSC AppBar Button
-        Appbar.RegisterKSCAppButton(
-            ModName,
-            ToolbarKscButtonID,
-            AssetManager.GetAsset<Texture2D>($"{Info.Metadata.GUID}/images/icon.png"),
-            () => AlarmWindowController.IsWindowOpen = !AlarmWindowController.IsWindowOpen
-        );
-
         // Register all Harmony patches in the project
         Harmony.CreateAndPatchAll(typeof(AlarmClockForKSP2Plugin).Assembly);
 
