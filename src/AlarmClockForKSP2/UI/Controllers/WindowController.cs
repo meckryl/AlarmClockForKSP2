@@ -5,12 +5,14 @@ using UnityEngine.UIElements;
 
 namespace AlarmClockForKSP2
 {
-    enum MainWindowContext
+    public enum MainWindowContext
     {
         AlarmsList,
         NewAlarm,
         TransferWindow,
-        Custom
+        Custom,
+        Timer,
+        Settings
     }
     public class WindowController : MonoBehaviour
     {
@@ -25,9 +27,15 @@ namespace AlarmClockForKSP2
         public AlarmsListContext AlarmsListController;
         private NewAlarmContext _newAlarmMenuController;
         private TransferWindowContext _transferWindowMenuController;
-        private CustomAlarmContext _customAlarmMenuController;
+        private TimerAlarmContext _customAlarmMenuController;
+        private TimerAlarmContext _timerAlarmContext;
+        private SettingsMenuContext _settingsMenuController;
+
+        private List<ContextElement> _contexts = new List<ContextElement>();
 
         public ListView AlarmsList;
+        public MainWindowContext PreviousState;
+        public MainWindowContext CurrentState;
 
         // The backing field for the IsWindowOpen property
         private bool _isWindowOpen = false;
@@ -66,16 +74,24 @@ namespace AlarmClockForKSP2
             // Get the root element of the window.
             _rootElement = _window.rootVisualElement[0];
             _alarmsWindow = _rootElement.Q<VisualElement>("alarms-window");
-            
+
+            _settingsMenuController = new SettingsMenuContext(SwapContext);
+
+
             AlarmsListController = new AlarmsListContext(SwapContext);
             _newAlarmMenuController = new NewAlarmContext(SwapContext);
-            _transferWindowMenuController = new TransferWindowContext(SwapContext);
-            _customAlarmMenuController = new CustomAlarmContext(SwapContext);
+            _transferWindowMenuController = new TransferWindowContext(SwapContext, _settingsMenuController.GetSettings);
+            _customAlarmMenuController = new TimerAlarmContext(SwapContext);
+            _timerAlarmContext = new TimerAlarmContext(SwapContext);
 
-            _alarmsWindow.Add(AlarmsListController);
-            _alarmsWindow.Add(_newAlarmMenuController);
-            _alarmsWindow.Add(_transferWindowMenuController);
-            _alarmsWindow.Add(_customAlarmMenuController);
+            _contexts.Add(AlarmsListController);
+            _contexts.Add(_newAlarmMenuController);
+            _contexts.Add(_transferWindowMenuController);
+            _contexts.Add(_customAlarmMenuController);
+            _contexts.Add(_timerAlarmContext);
+            _contexts.Add(_settingsMenuController);
+
+            foreach (ContextElement context in _contexts) _alarmsWindow.Add(context);
 
             AlarmsList = AlarmsListController.AlarmsListView;
 
@@ -104,33 +120,11 @@ namespace AlarmClockForKSP2
 
         private void SwapContext(int state)
         {
-
-            switch (state)
+            PreviousState = CurrentState;
+            CurrentState = (MainWindowContext)state;
+            for(int index = 0; index<_contexts.Count; index++)
             {
-                case 0:
-                    AlarmsListController.IsVisible = true;
-                    _newAlarmMenuController.IsVisible = false;
-                    _transferWindowMenuController.IsVisible = false;
-                    _customAlarmMenuController.IsVisible = false;
-                    break;
-                case 1:
-                    AlarmsListController.IsVisible = false;
-                    _newAlarmMenuController.IsVisible = true;
-                    _transferWindowMenuController.IsVisible = false;
-                    _customAlarmMenuController.IsVisible = false;
-                    break;
-                case 2:
-                    AlarmsListController.IsVisible = false;
-                    _newAlarmMenuController.IsVisible = false;
-                    _transferWindowMenuController.IsVisible = true;
-                    _customAlarmMenuController.IsVisible = false;
-                    break;
-                case 3:
-                    AlarmsListController.IsVisible = false;
-                    _newAlarmMenuController.IsVisible = false;
-                    _transferWindowMenuController.IsVisible = false;
-                    _customAlarmMenuController.IsVisible = true;
-                    break;
+                _contexts[index].IsVisible = index == state;
             }
         }
     }

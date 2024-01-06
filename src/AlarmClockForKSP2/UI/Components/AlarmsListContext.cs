@@ -9,6 +9,9 @@ namespace AlarmClockForKSP2
         public Button NewAlarmButton;
         public ListView AlarmsListView;
 
+        public Button SettingsButton;
+
+
         public AlarmsListContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/AlarmsList.uxml")
         {
             NewAlarmButton = this.Q<Button>("new-alarm-button");
@@ -39,6 +42,9 @@ namespace AlarmClockForKSP2
 
             PersistentDataManager.RegisterAlarmReset(ResetAlarms);
             MessageManager.MessageCenter.PersistentSubscribe<QuitToMainMenuStartedMessage>(_ => ResetAlarms());
+
+            SettingsButton = this.Q<Button>("options-button");
+            SettingsButton.clicked += SettingsClicked;
 
         }
 
@@ -81,6 +87,11 @@ namespace AlarmClockForKSP2
         {
             AlarmsListView.Rebuild();
 
+        }
+
+        private void SettingsClicked()
+        {
+            _swapContext((int)MainWindowContext.Settings);
         }
     }
 }

@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="context_heading" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-shrink: 0; flex-direction: row; justify-content: space-between; align-items: flex-end;">
+        <ui:Label tabindex="-1" text="&gt; settings" display-tooltip-when-elided="true" name="context_label" style="-unity-font-definition: initial; font-size: 24px; -unity-text-align: middle-left; margin-top: 0; margin-left: 10px; -unity-font-style: normal; -unity-font: url(&apos;project://database/Assets/UI/Fonts/pixel_operator/PixelOperator.ttf?fileID=12800000&amp;guid=9ceec0e7d44939f4eb91cc3bd17a6652&amp;type=3#PixelOperator&apos;);" />
+        <ui:Button display-tooltip-when-elided="true" name="close-options-button" text="—" style="background-color: rgba(15, 19, 24, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; -unity-background-scale-mode: scale-to-fit; background-image: none; height: 32px; width: 32px; margin-right: 5px; color: rgb(192, 199, 213); font-size: 20px;" />
+    </ui:VisualElement>
+    <ui:ScrollView style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 25px; width: auto; height: auto; flex-grow: 1;">
+        <ui:Label tabindex="-1" text="//Transfer window calculation method" display-tooltip-when-elided="true" style="-unity-text-align: upper-left; font-size: 14px;" />
+        <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" name="transfer_method_dropdown" />
+        <ui:Label tabindex="-1" text="=========================================================" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; color: rgb(65, 70, 81); padding-top: 0; padding-bottom: 0; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px;" />
+        <ui:Label tabindex="-1" text="//Transfer window early warning" display-tooltip-when-elided="true" style="-unity-text-align: upper-left; font-size: 14px; margin-bottom: 5px;" />
+        <ui:IntegerField label="Day" value="1" is-delayed="false" name="day-integerfield" style="margin-left: 6px; margin-right: 6px;" />
+        <ui:IntegerField label="Hour" value="0" is-delayed="false" name="hour-integerfield" style="margin-left: 6px; margin-right: 6px;" />
+        <ui:IntegerField label="Minute" value="0" is-delayed="false" name="minute-integerfield" style="margin-left: 6px; margin-right: 6px;" />
+        <ui:IntegerField label="Second" value="0" is-delayed="false" name="second-integerfield" style="margin-left: 6px; margin-right: 6px;" />
+    </ui:ScrollView>
+</ui:UXML>

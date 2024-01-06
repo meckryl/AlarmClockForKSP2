@@ -1,9 +1,10 @@
 ﻿using SpaceWarp.API.Assets;
 using UnityEngine.UIElements;
+using KSP.Game;
 
 namespace AlarmClockForKSP2
 {
-    public class CustomAlarmContext : ContextElement
+    public class TimerAlarmContext : ContextElement
     {
         private TextField _nameTextField;
         private IntegerField _yearIntegerField;
@@ -16,7 +17,7 @@ namespace AlarmClockForKSP2
         public Button SettingsButton;
 
 
-        public CustomAlarmContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/UniverseAlarmMenu.uxml")
+        public TimerAlarmContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/TimerAlarmWindow.uxml")
         {
 
             _nameTextField = this.Q<TextField>("name-textfield");
@@ -35,13 +36,15 @@ namespace AlarmClockForKSP2
 
         private void CustomConfirmButtonClicked()
         {
-            FormattedTimeWrapper time = new FormattedTimeWrapper(
+            FormattedTimeWrapper deltaTime = new FormattedTimeWrapper(
                 _yearIntegerField.value - 1,
                 _dayIntegerField.value - 1,
                 _hourIntegerField.value,
                 _minuteIntegerField.value,
                 _secondIntegerField.value
                 );
+
+            FormattedTimeWrapper time = new FormattedTimeWrapper(GameManager.Instance.Game.UniverseModel.UniverseTime + deltaTime.asSeconds());
 
             TimeManager.Instance.AddAlarm(_nameTextField.value, time);
             AlarmClockForKSP2Plugin.Instance.AlarmWindowController.AlarmsList.Rebuild();

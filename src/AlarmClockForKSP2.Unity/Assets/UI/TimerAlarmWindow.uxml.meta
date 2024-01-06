@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 85d37fb9a558d5a4ea8c94c79698f569
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: alarmclock-resources.bundle
+  assetBundleVariant: 
+  script: {fileID: 13804, guid: 0000000000000000e000000000000000, type: 0}

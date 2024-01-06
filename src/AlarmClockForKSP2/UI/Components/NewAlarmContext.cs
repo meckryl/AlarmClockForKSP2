@@ -11,6 +11,9 @@ namespace AlarmClockForKSP2
         public Button SoiButton;
         public Button TransferWindowButton;
         public Button CustomAlarmButton;
+        public Button TimerButton;
+
+        public Button SettingsButton;
 
         public NewAlarmContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/NewAlarmMenu.uxml")
         {
@@ -25,6 +28,12 @@ namespace AlarmClockForKSP2
 
             CustomAlarmButton = this.Q<Button>("custom-button");
             CustomAlarmButton.clicked += CustomAlarmButtonClicked;
+
+            TimerButton = this.Q<Button>("timer-button");
+            TimerButton.clicked += TimerButtonClicked;
+
+            SettingsButton = this.Q<Button>("options-button");
+            SettingsButton.clicked += SettingsClicked;
         }
         private void DefaultToListView()
         {
@@ -66,6 +75,16 @@ namespace AlarmClockForKSP2
         private void CustomAlarmButtonClicked()
         {
             _swapContext((int)MainWindowContext.Custom);
+        }
+
+        private void TimerButtonClicked()
+        {
+            _swapContext((int)MainWindowContext.Timer);
+        }
+
+        private void SettingsClicked()
+        {
+            _swapContext((int)MainWindowContext.Settings);
         }
     }
 }
