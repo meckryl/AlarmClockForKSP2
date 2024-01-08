@@ -21,8 +21,13 @@ namespace AlarmClockForKSP2
         {
 
             _nameTextField = this.Q<TextField>("name-textfield");
+
             _yearIntegerField = this.Q<IntegerField>("year-integerfield");
+            _yearIntegerField.value = 0;
+
             _dayIntegerField = this.Q<IntegerField>("day-integerfield");
+            _dayIntegerField.value = 0;
+
             _hourIntegerField = this.Q<IntegerField>("hour-integerfield");
             _minuteIntegerField = this.Q<IntegerField>("minute-integerfield");
             _secondIntegerField = this.Q<IntegerField>("second-integerfield");
@@ -37,8 +42,8 @@ namespace AlarmClockForKSP2
         private void CustomConfirmButtonClicked()
         {
             FormattedTimeWrapper deltaTime = new FormattedTimeWrapper(
-                _yearIntegerField.value - 1,
-                _dayIntegerField.value - 1,
+                _yearIntegerField.value,
+                _dayIntegerField.value,
                 _hourIntegerField.value,
                 _minuteIntegerField.value,
                 _secondIntegerField.value
@@ -49,8 +54,8 @@ namespace AlarmClockForKSP2
             TimeManager.Instance.AddAlarm(_nameTextField.value, time);
             AlarmClockForKSP2Plugin.Instance.AlarmWindowController.AlarmsList.Rebuild();
 
-            _yearIntegerField.value = 1;
-            _dayIntegerField.value = 1;
+            _yearIntegerField.value = 0;
+            _dayIntegerField.value = 0;
             _hourIntegerField.value = 0;
             _minuteIntegerField.value = 0;
             _secondIntegerField.value = 0;

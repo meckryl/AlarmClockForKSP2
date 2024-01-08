@@ -5,7 +5,7 @@
     </ui:VisualElement>
     <ui:ScrollView style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 25px; width: auto; height: auto; flex-grow: 1;">
         <ui:Label tabindex="-1" text="//Transfer window calculation method" display-tooltip-when-elided="true" style="-unity-text-align: upper-left; font-size: 14px;" />
-        <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" name="transfer_method_dropdown" />
+        <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" name="transfer_method_dropdown" style="color: rgb(192, 199, 213);" />
         <ui:Label tabindex="-1" text="=========================================================" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; color: rgb(65, 70, 81); padding-top: 0; padding-bottom: 0; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px;" />
         <ui:Label tabindex="-1" text="//Transfer window early warning" display-tooltip-when-elided="true" style="-unity-text-align: upper-left; font-size: 14px; margin-bottom: 5px;" />
         <ui:IntegerField label="Day" value="1" is-delayed="false" name="day-integerfield" style="margin-left: 6px; margin-right: 6px;" />

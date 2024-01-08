@@ -30,6 +30,8 @@ namespace AlarmClockForKSP2
         private DropdownField _transferCalcMethod;
         private Button _closeSettings;
 
+        private string[] CHOICES = {"alexmoon"};
+
         public SettingsMenuContext(Action<int> swapContext) : base(swapContext, "alarmclock-resources/UI/SettingsMenu.uxml")
         {
             _dayIntegerField = this.Q<IntegerField>("day-integerfield");
@@ -38,7 +40,8 @@ namespace AlarmClockForKSP2
             _secondIntegerField = this.Q<IntegerField>("second-integerfield");
 
             _transferCalcMethod = this.Q<DropdownField>("transfer_method_dropdown");
-            _transferCalcMethod.choices.Add("alexmoon");
+            _transferCalcMethod.choices = new List<string>(CHOICES);
+            _transferCalcMethod.index = 0;
 
             _closeSettings = this.Q<Button>("close-options-button");
             _closeSettings.clicked += CloseSettingsClicked;

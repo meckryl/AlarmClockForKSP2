@@ -171,7 +171,7 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.A) && GameStateValid)
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown("`") && GameStateValid)
         {
             AlarmWindowController.IsWindowOpen = !AlarmWindowController.IsWindowOpen;
         }
