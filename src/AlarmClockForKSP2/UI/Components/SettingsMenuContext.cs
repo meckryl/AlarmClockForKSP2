@@ -38,6 +38,7 @@ namespace AlarmClockForKSP2
             _secondIntegerField = this.Q<IntegerField>("second-integerfield");
 
             _transferCalcMethod = this.Q<DropdownField>("transfer_method_dropdown");
+            _transferCalcMethod.choices.Add("alexmoon");
 
             _closeSettings = this.Q<Button>("close-options-button");
             _closeSettings.clicked += CloseSettingsClicked;

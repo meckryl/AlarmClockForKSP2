@@ -1,12 +1,22 @@
-﻿using AlarmClockForKSP2.Managers;
-using KSP.Game;
+﻿using KSP.Game;
 using KSP.Sim.impl;
 
 namespace AlarmClockForKSP2
 {
+
     public static class TransferWindowPlanner
     {
-        public const float GRAVITATIONAL_CONSTANT = 6.67e-11f;
+
+        private struct Range
+        {
+            public double lower, upper;
+
+            public Range(double lwr, double upr)
+            {
+                lower = lwr;
+                upper = upr;
+            }
+        }
 
         private static int orbitalTreeDepth(CelestialBodyComponent body)
         {
@@ -41,21 +51,6 @@ namespace AlarmClockForKSP2
             return originBodyDummy;
         }
 
-        /// <summary>
-        /// Original code by:
-        /// https://github.com/ABritInSpace/TransferCalculator-KSP2
-        /// License: https://raw.githubusercontent.com/ABritInSpace/TransferCalculator-KSP2/master/LICENSE.md
-        /// </summary>
-        private static double idealTransferAngle(CelestialBodyComponent originBody, CelestialBodyComponent destinationBody, CelestialBodyComponent referenceBody)
-        {
-            double meanSemiMajorAxis = (originBody.Orbit.semiMajorAxis + destinationBody.Orbit.semiMajorAxis) / 2;
-            double time = MathF.PI * MathF.Sqrt((float)(meanSemiMajorAxis * meanSemiMajorAxis * meanSemiMajorAxis) / ((float)referenceBody.Mass * GRAVITATIONAL_CONSTANT));
-
-            double transferAngle = (((180 - ((time / destinationBody.Orbit.period) * 360)) % 360) + 360) % 360;
-
-            return transferAngle;
-        }
-
         public static double getNextTransferWindow(string origin, string destination, double currentTime)
         {
             GameInstance game = GameManager.Instance?.Game;
@@ -81,45 +76,7 @@ namespace AlarmClockForKSP2
             if (originBody.Orbit.referenceBody.Name != referenceBody.Name) originBody = originBody.Orbit.referenceBody;
             if (destinationBody.Orbit.referenceBody.Name != referenceBody.Name) destinationBody = destinationBody.Orbit.referenceBody;
 
-            double transferAngle = idealTransferAngle(originBody, destinationBody, referenceBody);
-
-            AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"Transfer Angle: {transferAngle}");
-
-            //Temporarily convert to hours to avoid rounding issues
-            double originDegreesPerHour = 360 * 3600 / originBody.Orbit.period;
-            double destinationDegreesPerHour = 360 * 3600 / destinationBody.Orbit.period;
-
-            double relativeAngularSpeed = destinationDegreesPerHour - originDegreesPerHour;
-
-            double currentPhase = Vector3d.SignedAngle((Vector3d)destinationBody.Position.localPosition, (Vector3d)originBody.Position.localPosition, Vector3d.up);
-            double targetPhase = (360 + transferAngle) % 360;
-
-            double nextWindow;
-
-            if (relativeAngularSpeed > 0)
-            {
-                if (targetPhase > currentPhase)
-                {
-                    nextWindow = currentTime + 3600 * (targetPhase - currentPhase) / (relativeAngularSpeed);
-                }
-                else
-                {
-                    nextWindow = currentTime + 3600 * (360 + targetPhase - currentPhase) / (relativeAngularSpeed);
-                }
-            }
-            else
-            {
-                if (targetPhase > currentPhase)
-                {
-                    nextWindow = currentTime + 3600 * (targetPhase - currentPhase - 360) / (relativeAngularSpeed);
-                }
-                else
-                {
-                    nextWindow = currentTime + 3600 * (targetPhase - currentPhase) / (relativeAngularSpeed);
-                }
-            }
-
-            AlarmClockForKSP2Plugin.Instance.SWLogger.LogMessage($"{relativeAngularSpeed} - {currentPhase} - {targetPhase} - {nextWindow}");
+            double nextWindow = LambertSolver.NextLaunchWindowUT(originBody, destinationBody);
 
             return nextWindow;
         }
