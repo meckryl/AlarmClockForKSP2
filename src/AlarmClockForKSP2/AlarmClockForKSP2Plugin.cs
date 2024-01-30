@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 using UitkForKsp2.API;
 using KSP.Messages;
 using AlarmClockForKSP2.Managers;
+using KSP.Game;
 
 namespace AlarmClockForKSP2;
 
@@ -175,7 +176,8 @@ public class AlarmClockForKSP2Plugin : BaseSpaceWarpPlugin
         {
             AlarmWindowController.IsWindowOpen = !AlarmWindowController.IsWindowOpen;
         }
-        TimeManager.Instance.Update();
+        if (GameManager.Instance?.Game?.UniverseModel is not null && GameManager.Instance?.Game?.ViewController?.TimeWarp is not null)
+            TimeManager.Instance.Update();
     }
 
     public void OpenMainWindow()
